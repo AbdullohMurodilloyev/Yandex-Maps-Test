@@ -8,22 +8,42 @@
 
 /* Begin PBXBuildFile section */
 		DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865382D65F62F0098BF48 /* AppDelegate.swift */; };
-		DBF8653B2D65F62F0098BF48 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */; };
-		DBF8653D2D65F62F0098BF48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8653C2D65F62F0098BF48 /* ViewController.swift */; };
-		DBF865402D65F62F0098BF48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF8653E2D65F62F0098BF48 /* Main.storyboard */; };
 		DBF865422D65F6310098BF48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF865412D65F6310098BF48 /* Assets.xcassets */; };
 		DBF865452D65F6310098BF48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */; };
+		DBF8654F2D65FA470098BF48 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8654E2D65FA400098BF48 /* TabbarController.swift */; };
+		DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865562D65FB810098BF48 /* SavedViewController.swift */; };
+		DBF865592D65FB960098BF48 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865582D65FB960098BF48 /* LocationViewController.swift */; };
+		DBF8655C2D65FC610098BF48 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8655B2D65FC5A0098BF48 /* Coordinator.swift */; };
+		DBF8655E2D65FC780098BF48 /* SavedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8655D2D65FC700098BF48 /* SavedCoordinator.swift */; };
+		DBF865602D65FC9F0098BF48 /* LocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8655F2D65FC980098BF48 /* LocationCoordinator.swift */; };
+		DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865612D65FCF70098BF48 /* SavedViewModel.swift */; };
+		DBF865642D65FD6A0098BF48 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865632D65FD640098BF48 /* LocationViewModel.swift */; };
+		DBF865672D66039A0098BF48 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865662D6603950098BF48 /* SavedView.swift */; };
+		DBF865692D6603AD0098BF48 /* SavedTableVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865682D6603A40098BF48 /* SavedTableVIewCell.swift */; };
+		DBF8656C2D6604C40098BF48 /* Ex-CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8656B2D6604BF0098BF48 /* Ex-CALayer.swift */; };
+		DBF8656E2D66050E0098BF48 /* Ex-UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8656D2D6604FB0098BF48 /* Ex-UITableView.swift */; };
+		DBF865702D6605290098BF48 /* Ex-Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8656F2D6605280098BF48 /* Ex-Reusable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DBF865352D65F62F0098BF48 /* Yandex Maps Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yandex Maps Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF865382D65F62F0098BF48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DBF8653C2D65F62F0098BF48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DBF8653F2D65F62F0098BF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBF865412D65F6310098BF48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBF865442D65F6310098BF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBF865462D65F6310098BF48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF8654E2D65FA400098BF48 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
+		DBF865562D65FB810098BF48 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		DBF865582D65FB960098BF48 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		DBF8655B2D65FC5A0098BF48 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DBF8655D2D65FC700098BF48 /* SavedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinator.swift; sourceTree = "<group>"; };
+		DBF8655F2D65FC980098BF48 /* LocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinator.swift; sourceTree = "<group>"; };
+		DBF865612D65FCF70098BF48 /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
+		DBF865632D65FD640098BF48 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		DBF865662D6603950098BF48 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		DBF865682D6603A40098BF48 /* SavedTableVIewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTableVIewCell.swift; sourceTree = "<group>"; };
+		DBF8656B2D6604BF0098BF48 /* Ex-CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex-CALayer.swift"; sourceTree = "<group>"; };
+		DBF8656D2D6604FB0098BF48 /* Ex-UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex-UITableView.swift"; sourceTree = "<group>"; };
+		DBF8656F2D6605280098BF48 /* Ex-Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex-Reusable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +76,81 @@
 		DBF8654D2D65F64F0098BF48 /* Yandex Maps Test */ = {
 			isa = PBXGroup;
 			children = (
-				DBF865382D65F62F0098BF48 /* AppDelegate.swift */,
-				DBF865412D65F6310098BF48 /* Assets.xcassets */,
+				DBF865532D65FB2F0098BF48 /* Resources */,
+				DBF8656A2D6604A30098BF48 /* Extensions */,
+				DBF8655A2D65FC480098BF48 /* Coordinators */,
+				DBF865502D65FA4E0098BF48 /* Moduls */,
 				DBF865462D65F6310098BF48 /* Info.plist */,
-				DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */,
-				DBF8653E2D65F62F0098BF48 /* Main.storyboard */,
-				DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */,
-				DBF8653C2D65F62F0098BF48 /* ViewController.swift */,
 			);
 			path = "Yandex Maps Test";
+			sourceTree = "<group>";
+		};
+		DBF865502D65FA4E0098BF48 /* Moduls */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865542D65FB480098BF48 /* Saved */,
+				DBF865552D65FB6A0098BF48 /* Location */,
+			);
+			path = Moduls;
+			sourceTree = "<group>";
+		};
+		DBF865532D65FB2F0098BF48 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865382D65F62F0098BF48 /* AppDelegate.swift */,
+				DBF8654E2D65FA400098BF48 /* TabbarController.swift */,
+				DBF865412D65F6310098BF48 /* Assets.xcassets */,
+				DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DBF865542D65FB480098BF48 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865562D65FB810098BF48 /* SavedViewController.swift */,
+				DBF865612D65FCF70098BF48 /* SavedViewModel.swift */,
+				DBF865652D6603540098BF48 /* View */,
+			);
+			path = Saved;
+			sourceTree = "<group>";
+		};
+		DBF865552D65FB6A0098BF48 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865582D65FB960098BF48 /* LocationViewController.swift */,
+				DBF865632D65FD640098BF48 /* LocationViewModel.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		DBF8655A2D65FC480098BF48 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				DBF8655B2D65FC5A0098BF48 /* Coordinator.swift */,
+				DBF8655D2D65FC700098BF48 /* SavedCoordinator.swift */,
+				DBF8655F2D65FC980098BF48 /* LocationCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		DBF865652D6603540098BF48 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865662D6603950098BF48 /* SavedView.swift */,
+				DBF865682D6603A40098BF48 /* SavedTableVIewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DBF8656A2D6604A30098BF48 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DBF8656D2D6604FB0098BF48 /* Ex-UITableView.swift */,
+				DBF8656B2D6604BF0098BF48 /* Ex-CALayer.swift */,
+				DBF8656F2D6605280098BF48 /* Ex-Reusable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +216,6 @@
 			files = (
 				DBF865452D65F6310098BF48 /* LaunchScreen.storyboard in Resources */,
 				DBF865422D65F6310098BF48 /* Assets.xcassets in Resources */,
-				DBF865402D65F62F0098BF48 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,23 +226,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF8653D2D65F62F0098BF48 /* ViewController.swift in Sources */,
+				DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */,
 				DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */,
-				DBF8653B2D65F62F0098BF48 /* SceneDelegate.swift in Sources */,
+				DBF865692D6603AD0098BF48 /* SavedTableVIewCell.swift in Sources */,
+				DBF865702D6605290098BF48 /* Ex-Reusable.swift in Sources */,
+				DBF8655C2D65FC610098BF48 /* Coordinator.swift in Sources */,
+				DBF8655E2D65FC780098BF48 /* SavedCoordinator.swift in Sources */,
+				DBF865602D65FC9F0098BF48 /* LocationCoordinator.swift in Sources */,
+				DBF8656C2D6604C40098BF48 /* Ex-CALayer.swift in Sources */,
+				DBF8654F2D65FA470098BF48 /* TabbarController.swift in Sources */,
+				DBF8656E2D66050E0098BF48 /* Ex-UITableView.swift in Sources */,
+				DBF865672D66039A0098BF48 /* SavedView.swift in Sources */,
+				DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */,
+				DBF865642D65FD6A0098BF48 /* LocationViewModel.swift in Sources */,
+				DBF865592D65FB960098BF48 /* LocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DBF8653E2D65F62F0098BF48 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBF8653F2D65F62F0098BF48 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -181,7 +269,6 @@
 				INFOPLIST_FILE = "Yandex Maps Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -209,7 +296,6 @@
 				INFOPLIST_FILE = "Yandex Maps Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
