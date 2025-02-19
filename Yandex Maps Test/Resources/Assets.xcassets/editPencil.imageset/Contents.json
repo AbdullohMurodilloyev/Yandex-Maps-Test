@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "tdesign_location-filled.pdf",
+      "filename" : "editPencil.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
