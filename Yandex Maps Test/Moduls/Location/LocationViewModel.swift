@@ -5,7 +5,6 @@
 //  Created by Abdulloh Murodilloyev on 19/02/25.
 //
 
-
 import Foundation
 
 class LocationViewModel {
@@ -14,4 +13,9 @@ class LocationViewModel {
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
     }
+    
+    func pushToSearchResults() {
+        coordinator?.pushToSearchResults()
+    }
 }
+

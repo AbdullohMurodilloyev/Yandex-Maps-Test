@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCenteredAlertView: Uiview {
+class CustomCenteredAlertView: UIView {
     
     // MARK: - UI Components
     private let containerView: UIView = {
@@ -19,22 +19,8 @@ class CustomCenteredAlertView: Uiview {
         return view
     }()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let messageLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let titleLabel: UILabel = createLabel(fontSize: 20)
+    private let messageLabel: UILabel = createLabel(fontSize: 16)
     
     private let editButton: UIButton = {
         let button = UIButton()
@@ -50,25 +36,25 @@ class CustomCenteredAlertView: Uiview {
         return view
     }()
     
-    private let cancelButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.red, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.titleLabel?.textAlignment = .center
-        button.setTitle("Отмена", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private static func createLabel(fontSize: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: fontSize)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
     
-    private let confirmButton: UIButton = {
+    private let cancelButton: UIButton = createButton(title: "Отмена", titleColor: #colorLiteral(red: 0.9974989295, green: 0.3535399437, blue: 0.3205706477, alpha: 1) )
+    private let confirmButton: UIButton = createButton(title: "Подтвердить", titleColor: .black)
+    
+    private static func createButton(title: String, titleColor: UIColor) -> UIButton {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.titleLabel?.textAlignment = .center
-        button.setTitle("Подтвердить", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
-    }()
+    }
     
     // MARK: - Properties
     var onCancel: (() -> Void)?
@@ -181,11 +167,6 @@ class CustomCenteredAlertView: Uiview {
     func show(in view: UIView) {
         frame = view.bounds
         view.addSubview(self)
-        
-        // Initial state setup before animation
-        containerView.alpha = 1.0
-        backgroundColor = UIColor.clear
-        
         // Run opening animation
         animateContainerOpening()
     }

@@ -22,5 +22,35 @@ final class LocationCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
     
+    func pushToSearchResults() {
+        let vm = SearchResultsViewModel(coordinator: self)
+        let vc = SearchResultsViewController(viewModel: vm)
+        vc.modalPresentationStyle = .pageSheet
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+        }
+        navigationController.present(vc, animated: true)
+    }
+    
+    func presentSearchResultDetail() {
+        let vm = SearchResultDetailViewModel(coordinator: self)
+        let vc = SearchResultDetailViewController(viewModel: vm)
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.custom { _ in
+                return 170
+            }]
+            sheet.prefersGrabberVisible = true
+        }
+        navigationController.present(vc, animated: true)
+    }
+    
+    func presentAlert() {
+        let vm = CustomCenteredAlertViewModel(coordinator: self)
+        let vc = CustomCenteredAlertViewController(viewModel: vm)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        navigationController.present(vc, animated: true)
+    }    
     
 }

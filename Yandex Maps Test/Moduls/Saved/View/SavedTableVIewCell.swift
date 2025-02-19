@@ -10,7 +10,7 @@ import UIKit
 class SavedTableVIewCell: UITableViewCell {
     
     // UI Components
-    private let questionLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.text = "Le Grande Plaza Hotel"
@@ -18,9 +18,9 @@ class SavedTableVIewCell: UITableViewCell {
         return label
     }()
     
-    private let answerLabel: UILabel = {
+    private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 14, weight: .bold)
         label.text = "ул. Узбекистон Овози, 2"
         label.textColor = .lightGray
         return label
@@ -44,7 +44,7 @@ class SavedTableVIewCell: UITableViewCell {
     
     // Stack Views
     private lazy var labelStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [questionLabel, answerLabel])
+        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stack.axis = .vertical
         stack.spacing = 5
         stack.alignment = .fill

@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import YandexMapsMobile
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    static var shared: AppDelegate?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -28,18 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setupYandexMaps() {
-        //        YMKMapKit.setApiKey("522fb9ba-acc3-4c2a-ad64-371448cace44")
-        //        YMKMapKit.sharedInstance().onStart()
+        YMKMapKit.setApiKey("522fb9ba-acc3-4c2a-ad64-371448cace44")
+        YMKMapKit.sharedInstance()
     }
     
     
     private func setupMainWindow() {
+        Self.shared = self
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
     }
     
-    private func startMainFlow() {
+    func startMainFlow() {
         let tabBarController = TabbarController()
         window?.rootViewController = tabBarController
     }

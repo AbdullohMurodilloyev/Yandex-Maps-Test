@@ -23,7 +23,7 @@ class SearchResultDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -52,29 +52,8 @@ class SearchResultDetailViewController: UIViewController {
 // MARK: Delegate
 extension SearchResultDetailViewController: SearchResultDetailViewDelegate {
     func tappedFavoriteAddressAlert() {
-        if let parentVC = presentingViewController {
-            dismiss(animated: true) { [weak self] in
-                self?.showCustomAlert(in: parentVC.view)
-            }
+        dismiss(animated: true) { [weak self] in
+            self?.viewModel.presentAlert()
         }
     }
-    
-    private func showCustomAlert(in parentView: UIView) {
-        let alertView = CustomCenteredAlertView()
-        alertView.configure(
-            title: "Добавить адрес в избранное",
-            message: "ул. Узбекистон Овози, 2"
-        )
-        
-        alertView.onCancel = { print("Cancelled") }
-        
-        alertView.onConfirm = { [weak self] in
-            self.dismiss(animated: true) {
-                self?.presentingViewController?.tabBarController?.selectedIndex = 0
-            }
-        }
-            
-        alertView.show(in: parentView)
-    }
-    
 }

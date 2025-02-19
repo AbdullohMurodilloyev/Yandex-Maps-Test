@@ -8,22 +8,41 @@
 import UIKit
 
 class CustomCenteredAlertViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    // MARK: - Properties
+    private let alertView = CustomCenteredAlertView()
+    private let viewModel: CustomCenteredAlertViewModel
+    
+    // MARK: - Init
+    init(viewModel: CustomCenteredAlertViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
-
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = .clear
+        view.addSubview(alertView)
+        alertView.configure(title: "Добавить адрес в избранное", message: "ул. Узбекистон Овози, 2")
+        alertView.show(in: view)
+        
+        alertView.onCancel = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        
+        alertView.onConfirm = { [weak self] in
+            self?.dismiss(animated: true) {
+                AppDelegate.shared?.startMainFlow()
+            }
+        }
+    }
 }
