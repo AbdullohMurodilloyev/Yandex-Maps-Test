@@ -6,30 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865382D65F62F0098BF48 /* AppDelegate.swift */; };
+		DBF8653B2D65F62F0098BF48 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */; };
+		DBF8653D2D65F62F0098BF48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8653C2D65F62F0098BF48 /* ViewController.swift */; };
+		DBF865402D65F62F0098BF48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF8653E2D65F62F0098BF48 /* Main.storyboard */; };
+		DBF865422D65F6310098BF48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF865412D65F6310098BF48 /* Assets.xcassets */; };
+		DBF865452D65F6310098BF48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		DBF865352D65F62F0098BF48 /* Yandex Maps Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yandex Maps Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF865382D65F62F0098BF48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DBF8653C2D65F62F0098BF48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DBF8653F2D65F62F0098BF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DBF865412D65F6310098BF48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBF865442D65F6310098BF48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DBF865462D65F6310098BF48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DBF865472D65F6310098BF48 /* Exceptions for "Yandex Maps Test" folder in "Yandex Maps Test" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DBF865342D65F62F0098BF48 /* Yandex Maps Test */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		DBF865372D65F62F0098BF48 /* Yandex Maps Test */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DBF865472D65F6310098BF48 /* Exceptions for "Yandex Maps Test" folder in "Yandex Maps Test" target */,
-			);
-			path = "Yandex Maps Test";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DBF865322D65F62F0098BF48 /* Frameworks */ = {
@@ -45,7 +40,7 @@
 		DBF8652C2D65F62F0098BF48 = {
 			isa = PBXGroup;
 			children = (
-				DBF865372D65F62F0098BF48 /* Yandex Maps Test */,
+				DBF8654D2D65F64F0098BF48 /* Yandex Maps Test */,
 				DBF865362D65F62F0098BF48 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +51,20 @@
 				DBF865352D65F62F0098BF48 /* Yandex Maps Test.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DBF8654D2D65F64F0098BF48 /* Yandex Maps Test */ = {
+			isa = PBXGroup;
+			children = (
+				DBF865382D65F62F0098BF48 /* AppDelegate.swift */,
+				DBF865412D65F6310098BF48 /* Assets.xcassets */,
+				DBF865462D65F6310098BF48 /* Info.plist */,
+				DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */,
+				DBF8653E2D65F62F0098BF48 /* Main.storyboard */,
+				DBF8653A2D65F62F0098BF48 /* SceneDelegate.swift */,
+				DBF8653C2D65F62F0098BF48 /* ViewController.swift */,
+			);
+			path = "Yandex Maps Test";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -72,9 +81,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DBF865372D65F62F0098BF48 /* Yandex Maps Test */,
 			);
 			name = "Yandex Maps Test";
 			packageProductDependencies = (
@@ -122,6 +128,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF865452D65F6310098BF48 /* LaunchScreen.storyboard in Resources */,
+				DBF865422D65F6310098BF48 /* Assets.xcassets in Resources */,
+				DBF865402D65F62F0098BF48 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,10 +141,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF8653D2D65F62F0098BF48 /* ViewController.swift in Sources */,
+				DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */,
+				DBF8653B2D65F62F0098BF48 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DBF8653E2D65F62F0098BF48 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBF8653F2D65F62F0098BF48 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBF865442D65F6310098BF48 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DBF865492D65F6310098BF48 /* Debug */ = {
