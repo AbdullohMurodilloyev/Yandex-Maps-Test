@@ -1,10 +1,3 @@
-//
-//  SearchResultDetailViewController.swift
-//  Yandex Maps Test
-//
-//  Created by Abdulloh Murodilloyev on 20/02/25.
-//
-
 import UIKit
 
 class SearchResultDetailViewController: UIViewController {
@@ -29,13 +22,12 @@ class SearchResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        configure(with: searchResult.name, address: searchResult.address)
+        configureView()
     }
     
     private func setupView() {
         view.addSubview(detailView)
         detailView.delegate = self
-        
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -46,19 +38,20 @@ class SearchResultDetailViewController: UIViewController {
         ])
     }
     
-    func configure(with hotelName: String, address: String) {
-        detailView.configure(with: hotelName, address: address)
+    private func configureView() {
+        detailView.configure(
+            with: searchResult.name,
+            address: searchResult.address
+        )
     }
-    
 }
 
-// MARK: Delegate
+// MARK: - SearchResultDetailViewDelegate
 extension SearchResultDetailViewController: SearchResultDetailViewDelegate {
     func tappedFavoriteAddressAlert() {
         dismiss(animated: true) { [weak self] in
-            if let data = self?.searchResult {
-                self?.viewModel.presentAlert(searchResult: data)
-            }
+            guard let self = self else { return }
+            self.viewModel.presentAlert(searchResult: self.searchResult)
         }
     }
 }

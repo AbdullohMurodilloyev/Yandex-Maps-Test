@@ -9,7 +9,7 @@ import UIKit
 import YandexMapsMobile
 
 class LocationViewController: UIViewController {
-   
+    
     // MARK: - Properties
     private let viewModel: LocationViewModel
     private let mapView = YMKMapView()
@@ -30,41 +30,38 @@ class LocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setUpMapMethods()
-        
-    }
-    
-    private func setUpMapMethods() {
-        mapView.mapWindow.map.move(
-            with: YMKCameraPosition(
-                target: YMKPoint(latitude: 41.2995, longitude: 69.2401),
-                zoom: 11,
-                azimuth: 0,
-                tilt: 30.0
-            ),
-            animationType: YMKAnimation(type: YMKAnimationType.smooth, duration: 1),
-            cameraCallback: nil)
+        setupMap()
     }
 }
 
-// MARK: - Setup Methods
-extension LocationViewController {
-    private func setupView() {
+// MARK: - UI Setup
+private extension LocationViewController {
+    func setupView() {
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
         view.addSubview(mapView)
         view.addSubview(searchView)
         view.addSubview(locationButton)
         
-       
+        setupSearchView()
+        setupLocationButton()
+        setupConstraints()
+    }
+    
+    func setupSearchView() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSearch))
         searchView.addGestureRecognizer(tapGesture)
         searchView.setTextFieldInteraction(enabled: false)
-        
+    }
+    
+    func setupLocationButton() {
         locationButton.setImage(UIImage(named: "currentLocation"), for: .normal)
         locationButton.adjustsImageWhenHighlighted = false
         locationButton.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
-        
+    }
+    
+    func setupConstraints() {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         searchView.translatesAutoresizingMaskIntoConstraints = false
         locationButton.translatesAutoresizingMaskIntoConstraints = false
@@ -88,50 +85,27 @@ extension LocationViewController {
     }
 }
 
+// MARK: - Map Setup
+private extension LocationViewController {
+    func setupMap() {
+        viewModel.moveToInitialLocation(on: mapView)
+    }
+}
 
 // MARK: - Actions
-extension LocationViewController {
-    @objc private func currentLocationTapped() {
-        print("📍 Current location button tapped")
-        moveToUserLocation()
+private extension LocationViewController {
+    @objc func currentLocationTapped() {
+        viewModel.moveToUserLocation(on: mapView)
     }
     
-    private func moveToUserLocation() {
-        // Foydalanuvchi lokatsiyasini olish (o'zingizning CLLocationManager implementatsiyangizni qo'shing)
-        let userLatitude: Double = 41.2995
-        let userLongitude: Double = 69.2401
-        
-        let userLocation = YMKPoint(latitude: userLatitude, longitude: userLongitude)
-        
-        mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: userLocation, zoom: 14, azimuth: 0, tilt: 30.0),
-            animationType: YMKAnimation(type: YMKAnimationType.smooth, duration: 1),
-            cameraCallback: nil
-        )
-    }
-    
-    @objc private func showSearch() {
+    @objc func showSearch() {
         viewModel.pushToSearchResults(delegate: self)
     }
 }
 
-// MARK: - Delegate
+// MARK: - SearchResultsViewControllerDelegate
 extension LocationViewController: SearchResultsViewControllerDelegate {
     func didSelectSearchResult(_ result: SearchResult) {
-        print("Tanlangan manzil:", result.name, result.latitude, result.longitude)
-        
-        let point = YMKPoint(latitude: result.latitude, longitude: result.longitude)
-        let mapObjects = mapView.mapWindow.map.mapObjects
-        mapObjects.clear()
-        let placemark = mapObjects.addPlacemark(with: point)
-        placemark.setIconWith(UIImage(named: "pin") ?? UIImage())
-        
-        mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: point, zoom: 15, azimuth: 0, tilt: 30.0),
-            animationType: YMKAnimation(type: .smooth, duration: 1),
-            cameraCallback: nil
-        )
+        viewModel.moveToLocation(latitude: result.latitude, longitude: result.longitude, on: mapView)
     }
 }
-
-
