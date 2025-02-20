@@ -9,18 +9,12 @@ import UIKit
 import YandexMapsMobile
 
 class LocationViewController: UIViewController {
-    
+   
     // MARK: - Properties
     private let viewModel: LocationViewModel
     private let mapView = YMKMapView()
     private let searchView = SearchView()
-    private lazy var locationButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "currentLocation"), for: .normal)
-        button.adjustsImageWhenHighlighted = false
-        button.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
-        return button
-    }()
+    private let locationButton = UIButton()
     
     // MARK: - Init
     init(viewModel: LocationViewModel) {
@@ -37,11 +31,7 @@ class LocationViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setUpMapMethods()
-        searchView.setTextFieldInteraction(enabled: false)
-        view.backgroundColor = .white
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSearch))
-        searchView.addGestureRecognizer(tapGesture)
+        
     }
     
     private func setUpMapMethods() {
@@ -60,9 +50,20 @@ class LocationViewController: UIViewController {
 // MARK: - Setup Methods
 extension LocationViewController {
     private func setupView() {
+        view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(true, animated: false)
         view.addSubview(mapView)
         view.addSubview(searchView)
         view.addSubview(locationButton)
+        
+       
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSearch))
+        searchView.addGestureRecognizer(tapGesture)
+        searchView.setTextFieldInteraction(enabled: false)
+        
+        locationButton.setImage(UIImage(named: "currentLocation"), for: .normal)
+        locationButton.adjustsImageWhenHighlighted = false
+        locationButton.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
         searchView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +111,27 @@ extension LocationViewController {
     }
     
     @objc private func showSearch() {
-        viewModel.pushToSearchResults()
+        viewModel.pushToSearchResults(delegate: self)
     }
 }
+
+// MARK: - Delegate
+extension LocationViewController: SearchResultsViewControllerDelegate {
+    func didSelectSearchResult(_ result: SearchResult) {
+        print("Tanlangan manzil:", result.name, result.latitude, result.longitude)
+        
+        let point = YMKPoint(latitude: result.latitude, longitude: result.longitude)
+        let mapObjects = mapView.mapWindow.map.mapObjects
+        mapObjects.clear()
+        let placemark = mapObjects.addPlacemark(with: point)
+        placemark.setIconWith(UIImage(named: "pin") ?? UIImage())
+        
+        mapView.mapWindow.map.move(
+            with: YMKCameraPosition(target: point, zoom: 15, azimuth: 0, tilt: 30.0),
+            animationType: YMKAnimation(type: .smooth, duration: 1),
+            cameraCallback: nil
+        )
+    }
+}
+
+

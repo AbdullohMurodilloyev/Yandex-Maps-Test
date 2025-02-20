@@ -11,8 +11,4 @@ class CustomCenteredAlertViewModel {
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
     }
-    
-    func presentSearchResultDetail() {
-        coordinator?.presentSearchResultDetail()
-    }
 }

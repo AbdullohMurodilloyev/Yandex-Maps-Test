@@ -6,16 +6,23 @@
 //
 
 import UIKit
+import YandexMapsMobile
+
+protocol SearchResultsViewControllerDelegate: AnyObject {
+    func didSelectSearchResult(_ result: SearchResult)
+}
 
 class SearchResultsViewController: UIViewController {
     
     // MARK: - Properties
+    weak var delegate: SearchResultsViewControllerDelegate?
     private let searchResults = SearchResultsView()
     private let viewModel: SearchResultsViewModel
     
     // MARK: - Init
-    init(viewModel: SearchResultsViewModel) {
+    init(viewModel: SearchResultsViewModel, delegate: SearchResultsViewControllerDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,9 +54,10 @@ class SearchResultsViewController: UIViewController {
 }
 
 extension SearchResultsViewController: SearchResultsViewDelegate {
-    func tappedCell() {
+    func tappedCell(result: SearchResult) {
+        delegate?.didSelectSearchResult(result)
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.presentSearchResultDetail()
+            self?.viewModel.presentSearchResultDetail(searchResult: result)
         }
     }
 }

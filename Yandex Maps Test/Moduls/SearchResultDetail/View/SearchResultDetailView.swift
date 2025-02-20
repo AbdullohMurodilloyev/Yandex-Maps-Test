@@ -111,11 +111,9 @@ class SearchResultDetailView: UIView {
         }
     }
     
-    func configure(with hotelName: String, address: String, rating: Int, reviews: Int) {
-        titleLabel.text = hotelName
+    func configure(with name: String, address: String) {
+        titleLabel.text = name
         addressLabel.text = address
-        ratingLabel.text = "\(reviews) оценок"
-        addStars(count: rating)
     }
     
     @objc func showFavoriteAddressAlert() {       

@@ -12,10 +12,12 @@ class CustomCenteredAlertViewController: UIViewController {
     // MARK: - Properties
     private let alertView = CustomCenteredAlertView()
     private let viewModel: CustomCenteredAlertViewModel
+    private let searchResult: SearchResult
     
     // MARK: - Init
-    init(viewModel: CustomCenteredAlertViewModel) {
+    init(viewModel: CustomCenteredAlertViewModel, searchResult: SearchResult) {
         self.viewModel = viewModel
+        self.searchResult = searchResult
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,7 +34,7 @@ class CustomCenteredAlertViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .clear
         view.addSubview(alertView)
-        alertView.configure(title: "Добавить адрес в избранное", message: "ул. Узбекистон Овози, 2")
+        alertView.configure(title: "Добавить адрес в избранное", message: searchResult.address)
         alertView.show(in: view)
         
         alertView.onCancel = { [weak self] in

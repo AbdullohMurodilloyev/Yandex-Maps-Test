@@ -12,10 +12,12 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Properties
     private let detailView = SearchResultDetailView()
     private let viewModel: SearchResultDetailViewModel
+    private let searchResult: SearchResult
     
     // MARK: - Init
-    init(viewModel: SearchResultDetailViewModel) {
+    init(viewModel: SearchResultDetailViewModel, searchResult: SearchResult) {
         self.viewModel = viewModel
+        self.searchResult = searchResult
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,6 +29,7 @@ class SearchResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        configure(with: searchResult.name, address: searchResult.address)
     }
     
     private func setupView() {
@@ -43,8 +46,8 @@ class SearchResultDetailViewController: UIViewController {
         ])
     }
     
-    func configure(with hotelName: String, address: String, rating: Int, reviews: Int) {
-        detailView.configure(with: hotelName, address: address, rating: rating, reviews: reviews)
+    func configure(with hotelName: String, address: String) {
+        detailView.configure(with: hotelName, address: address)
     }
     
 }
@@ -53,7 +56,9 @@ class SearchResultDetailViewController: UIViewController {
 extension SearchResultDetailViewController: SearchResultDetailViewDelegate {
     func tappedFavoriteAddressAlert() {
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.presentAlert()
+            if let data = self?.searchResult {
+                self?.viewModel.presentAlert(searchResult: data)
+            }
         }
     }
 }

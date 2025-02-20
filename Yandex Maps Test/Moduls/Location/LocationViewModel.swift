@@ -14,8 +14,8 @@ class LocationViewModel {
         self.coordinator = coordinator
     }
     
-    func pushToSearchResults() {
-        coordinator?.pushToSearchResults()
+    func pushToSearchResults(delegate: SearchResultsViewControllerDelegate) {
+        coordinator?.pushToSearchResults(delegate: delegate)
     }
 }
 

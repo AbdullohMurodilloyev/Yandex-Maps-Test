@@ -12,7 +12,7 @@ class SearchResultsViewModel {
         self.coordinator = coordinator
     }
     
-    func presentSearchResultDetail() {
-        coordinator?.presentSearchResultDetail()
+    func presentSearchResultDetail(searchResult: SearchResult) {
+        coordinator?.presentSearchResultDetail(searchResult: searchResult)
     }
 }
