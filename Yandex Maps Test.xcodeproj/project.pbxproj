@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F9CEFE96EE76569C49B8F16 /* Pods_Yandex_Maps_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D36BECBAE838DDDD165E6E /* Pods_Yandex_Maps_Test.framework */; };
+		DB1F39C02D664C9800296B91 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39BF2D664C9400296B91 /* SearchView.swift */; };
+		DB1F39C52D665A5F00296B91 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39C42D665A5F00296B91 /* SearchResultsViewController.swift */; };
+		DB1F39C72D665ABA00296B91 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39C62D665A9900296B91 /* SearchResultsViewModel.swift */; };
+		DB1F39CA2D665D0800296B91 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39C92D665D0100296B91 /* SearchResultsView.swift */; };
+		DB1F39CC2D665ECC00296B91 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39CB2D665ECA00296B91 /* SearchResultCell.swift */; };
+		DB1F39CF2D6668A600296B91 /* SearchResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39CE2D6668A600296B91 /* SearchResultDetailViewController.swift */; };
+		DB1F39D12D6668B700296B91 /* SearchResultDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39D02D6668B000296B91 /* SearchResultDetailViewModel.swift */; };
+		DB1F39D42D6668D000296B91 /* SearchResultDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39D32D6668CF00296B91 /* SearchResultDetailView.swift */; };
+		DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */; };
+		DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */; };
+		DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */; };
 		DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF865382D65F62F0098BF48 /* AppDelegate.swift */; };
 		DBF865422D65F6310098BF48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF865412D65F6310098BF48 /* Assets.xcassets */; };
 		DBF865452D65F6310098BF48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBF865432D65F6310098BF48 /* LaunchScreen.storyboard */; };
@@ -26,6 +38,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B4AB2994A982A1CE71DACB22 /* Pods-Yandex Maps Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yandex Maps Test.debug.xcconfig"; path = "Target Support Files/Pods-Yandex Maps Test/Pods-Yandex Maps Test.debug.xcconfig"; sourceTree = "<group>"; };
+		B6D36BECBAE838DDDD165E6E /* Pods_Yandex_Maps_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yandex_Maps_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7145623972954D7D59A8893 /* Pods-Yandex Maps Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yandex Maps Test.release.xcconfig"; path = "Target Support Files/Pods-Yandex Maps Test/Pods-Yandex Maps Test.release.xcconfig"; sourceTree = "<group>"; };
+		DB1F39BF2D664C9400296B91 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		DB1F39C42D665A5F00296B91 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		DB1F39C62D665A9900296B91 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
+		DB1F39C92D665D0100296B91 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
+		DB1F39CB2D665ECA00296B91 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		DB1F39CE2D6668A600296B91 /* SearchResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewController.swift; sourceTree = "<group>"; };
+		DB1F39D02D6668B000296B91 /* SearchResultDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewModel.swift; sourceTree = "<group>"; };
+		DB1F39D32D6668CF00296B91 /* SearchResultDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailView.swift; sourceTree = "<group>"; };
+		DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertView.swift; sourceTree = "<group>"; };
+		DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewController.swift; sourceTree = "<group>"; };
+		DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewModel.swift; sourceTree = "<group>"; };
 		DBF865352D65F62F0098BF48 /* Yandex Maps Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yandex Maps Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF865382D65F62F0098BF48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBF865412D65F6310098BF48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,17 +78,84 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9CEFE96EE76569C49B8F16 /* Pods_Yandex_Maps_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB1F39BE2D664C8800296B91 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				DB1F39BF2D664C9400296B91 /* SearchView.swift */,
+			);
+			path = VIew;
+			sourceTree = "<group>";
+		};
+		DB1F39C32D665A3D00296B91 /* SearchResults */ = {
+			isa = PBXGroup;
+			children = (
+				DB1F39C42D665A5F00296B91 /* SearchResultsViewController.swift */,
+				DB1F39C62D665A9900296B91 /* SearchResultsViewModel.swift */,
+				DB1F39C82D665CF600296B91 /* View */,
+			);
+			path = SearchResults;
+			sourceTree = "<group>";
+		};
+		DB1F39C82D665CF600296B91 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB1F39C92D665D0100296B91 /* SearchResultsView.swift */,
+				DB1F39CB2D665ECA00296B91 /* SearchResultCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB1F39CD2D66686F00296B91 /* SearchResultDetail */ = {
+			isa = PBXGroup;
+			children = (
+				DB1F39CE2D6668A600296B91 /* SearchResultDetailViewController.swift */,
+				DB1F39D02D6668B000296B91 /* SearchResultDetailViewModel.swift */,
+				DB1F39D22D6668BE00296B91 /* View */,
+			);
+			path = SearchResultDetail;
+			sourceTree = "<group>";
+		};
+		DB1F39D22D6668BE00296B91 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB1F39D32D6668CF00296B91 /* SearchResultDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB862CC72D66256800B4FA50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */,
+				B6D36BECBAE838DDDD165E6E /* Pods_Yandex_Maps_Test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DBAD4C482D668F1B00E1BE60 /* CustomCenteredAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */,
+				DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */,
+				DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */,
+			);
+			path = CustomCenteredAlertView;
+			sourceTree = "<group>";
+		};
 		DBF8652C2D65F62F0098BF48 = {
 			isa = PBXGroup;
 			children = (
 				DBF8654D2D65F64F0098BF48 /* Yandex Maps Test */,
+				DB862CC72D66256800B4FA50 /* Frameworks */,
 				DBF865362D65F62F0098BF48 /* Products */,
+				F7D03913BA588F70D993B3B3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +184,9 @@
 			children = (
 				DBF865542D65FB480098BF48 /* Saved */,
 				DBF865552D65FB6A0098BF48 /* Location */,
+				DB1F39C32D665A3D00296B91 /* SearchResults */,
+				DB1F39CD2D66686F00296B91 /* SearchResultDetail */,
+				DBAD4C482D668F1B00E1BE60 /* CustomCenteredAlertView */,
 			);
 			path = Moduls;
 			sourceTree = "<group>";
@@ -120,6 +217,7 @@
 			children = (
 				DBF865582D65FB960098BF48 /* LocationViewController.swift */,
 				DBF865632D65FD640098BF48 /* LocationViewModel.swift */,
+				DB1F39BE2D664C8800296B91 /* VIew */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -153,6 +251,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F7D03913BA588F70D993B3B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B4AB2994A982A1CE71DACB22 /* Pods-Yandex Maps Test.debug.xcconfig */,
+				B7145623972954D7D59A8893 /* Pods-Yandex Maps Test.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,17 +267,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBF865482D65F6310098BF48 /* Build configuration list for PBXNativeTarget "Yandex Maps Test" */;
 			buildPhases = (
+				315FB3F389E365BB754AFC39 /* [CP] Check Pods Manifest.lock */,
 				DBF865312D65F62F0098BF48 /* Sources */,
 				DBF865322D65F62F0098BF48 /* Frameworks */,
 				DBF865332D65F62F0098BF48 /* Resources */,
+				BAE8A36C117CAEF3556B727F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Yandex Maps Test";
-			packageProductDependencies = (
-			);
 			productName = "Yandex Maps Test";
 			productReference = DBF865352D65F62F0098BF48 /* Yandex Maps Test.app */;
 			productType = "com.apple.product-type.application";
@@ -221,12 +328,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		315FB3F389E365BB754AFC39 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Yandex Maps Test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BAE8A36C117CAEF3556B727F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Yandex Maps Test/Pods-Yandex Maps Test-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Yandex Maps Test/Pods-Yandex Maps Test-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yandex Maps Test/Pods-Yandex Maps Test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DBF865312D65F62F0098BF48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB1F39D12D6668B700296B91 /* SearchResultDetailViewModel.swift in Sources */,
+				DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */,
+				DB1F39CF2D6668A600296B91 /* SearchResultDetailViewController.swift in Sources */,
 				DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */,
+				DB1F39CA2D665D0800296B91 /* SearchResultsView.swift in Sources */,
+				DB1F39D42D6668D000296B91 /* SearchResultDetailView.swift in Sources */,
 				DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */,
 				DBF865692D6603AD0098BF48 /* SavedTableVIewCell.swift in Sources */,
 				DBF865702D6605290098BF48 /* Ex-Reusable.swift in Sources */,
@@ -235,11 +389,17 @@
 				DBF865602D65FC9F0098BF48 /* LocationCoordinator.swift in Sources */,
 				DBF8656C2D6604C40098BF48 /* Ex-CALayer.swift in Sources */,
 				DBF8654F2D65FA470098BF48 /* TabbarController.swift in Sources */,
+				DB1F39CC2D665ECC00296B91 /* SearchResultCell.swift in Sources */,
+				DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */,
+				DB1F39C52D665A5F00296B91 /* SearchResultsViewController.swift in Sources */,
+				DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */,
 				DBF8656E2D66050E0098BF48 /* Ex-UITableView.swift in Sources */,
+				DB1F39C02D664C9800296B91 /* SearchView.swift in Sources */,
 				DBF865672D66039A0098BF48 /* SavedView.swift in Sources */,
 				DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */,
 				DBF865642D65FD6A0098BF48 /* LocationViewModel.swift in Sources */,
 				DBF865592D65FB960098BF48 /* LocationViewController.swift in Sources */,
+				DB1F39C72D665ABA00296B91 /* SearchResultsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,23 +419,27 @@
 /* Begin XCBuildConfiguration section */
 		DBF865492D65F6310098BF48 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4AB2994A982A1CE71DACB22 /* Pods-Yandex Maps Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7GLT7PUB6Q;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Yandex Maps Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "www.Yandex-Maps-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -286,23 +450,27 @@
 		};
 		DBF8654A2D65F6310098BF48 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7145623972954D7D59A8893 /* Pods-Yandex Maps Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7GLT7PUB6Q;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Yandex Maps Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "www.Yandex-Maps-Test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

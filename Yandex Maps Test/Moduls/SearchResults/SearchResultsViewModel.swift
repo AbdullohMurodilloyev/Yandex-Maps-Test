@@ -1,21 +1,18 @@
 //
-//  LocationViewModel.swift
+//  SearchResultsViewModel.swift
 //  Yandex Maps Test
 //
 //  Created by Abdulloh Murodilloyev on 19/02/25.
 //
 
-import Foundation
-
-class LocationViewModel {
+class SearchResultsViewModel {
     private weak var coordinator: LocationCoordinator?
     
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
     }
     
-    func pushToSearchResults() {
-        coordinator?.pushToSearchResults()
+    func presentSearchResultDetail() {
+        coordinator?.presentSearchResultDetail()
     }
 }
-

@@ -1,19 +1,17 @@
 //
-//  SavedTableVIewCell.swift
+//  SearchResultCell.swift
 //  Yandex Maps Test
 //
 //  Created by Abdulloh Murodilloyev on 19/02/25.
 //
-
 import UIKit
 
-class SavedTableVIewCell: UITableViewCell {
+class SearchResultCell: UITableViewCell {
     
     // UI Components
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.text = "Le Grande Plaza Hotel"
         label.textColor = .black
         return label
     }()
@@ -21,43 +19,46 @@ class SavedTableVIewCell: UITableViewCell {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.text = "ул. Узбекистон Овози, 2"
         label.textColor = .lightGray
         return label
     }()
     
     private let iconImageView: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "locationFavourite")
+        img.image = UIImage(named: "location")
         img.translatesAutoresizingMaskIntoConstraints = false
         return img
     }()
     
-    private let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 12
-        view.layer.applyShadow()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private let distanceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
     }()
     
     // Stack Views
     private lazy var labelStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        let stack = UIStackView(arrangedSubviews: [topStack, subtitleLabel])
         stack.axis = .vertical
         stack.spacing = 5
+        return stack
+    }()
+    
+    private lazy var topStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [titleLabel, distanceLabel])
+        stack.axis = .horizontal
+        stack.spacing = 5
         stack.alignment = .fill
-        stack.distribution = .fill
+        stack.distribution = .equalSpacing
         return stack
     }()
     
     private lazy var containerStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [labelStack, iconImageView])
+        let stack = UIStackView(arrangedSubviews: [iconImageView, labelStack])
         stack.axis = .horizontal
         stack.spacing = 8
         stack.alignment = .center
-        stack.distribution = .equalSpacing
+        stack.distribution = .fill
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -73,26 +74,26 @@ class SavedTableVIewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        contentView.addSubview(containerView)
-        containerView.addSubview(containerStack)
+        contentView.addSubview(containerStack)
         backgroundColor = .clear
         selectionStyle = .none
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            
-            containerStack.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            containerStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            containerStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            containerStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
+            containerStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            containerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            containerStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
             iconImageView.widthAnchor.constraint(equalToConstant: 32),
             iconImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
+    }
+    
+    func configure(with title: String) {
+        titleLabel.text = title
+        subtitleLabel.text = "Toshkent, ul. O‘zbekiston Ovozi, 2"
+        distanceLabel.text = "36 м"
     }
 }
