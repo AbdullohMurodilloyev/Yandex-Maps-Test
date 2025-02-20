@@ -16,6 +16,12 @@
 		DB1F39D12D6668B700296B91 /* SearchResultDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39D02D6668B000296B91 /* SearchResultDetailViewModel.swift */; };
 		DB1F39D42D6668D000296B91 /* SearchResultDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F39D32D6668CF00296B91 /* SearchResultDetailView.swift */; };
 		DB21E3FA2D6773C0003CEAC1 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E3F92D6773BF003CEAC1 /* SearchResult.swift */; };
+		DB21E3FC2D678CF3003CEAC1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB21E3FB2D678CF3003CEAC1 /* CoreData.framework */; };
+		DB21E4012D678E62003CEAC1 /* Yandex Maps Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB21E3FF2D678E62003CEAC1 /* Yandex Maps Test.xcdatamodeld */; };
+		DB21E4152D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */; };
+		DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */; };
+		DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */; };
+		DB21E41A2D6793C8003CEAC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */; };
 		DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */; };
 		DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */; };
 		DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */; };
@@ -50,6 +56,12 @@
 		DB1F39D02D6668B000296B91 /* SearchResultDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewModel.swift; sourceTree = "<group>"; };
 		DB1F39D32D6668CF00296B91 /* SearchResultDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailView.swift; sourceTree = "<group>"; };
 		DB21E3F92D6773BF003CEAC1 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		DB21E3FB2D678CF3003CEAC1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DB21E4002D678E62003CEAC1 /* Yandex Maps Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Yandex Maps Test.xcdatamodel"; sourceTree = "<group>"; };
+		DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedLocation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
+		DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertView.swift; sourceTree = "<group>"; };
 		DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB21E3FC2D678CF3003CEAC1 /* CoreData.framework in Frameworks */,
 				E6A3E450484C46450C87ECC7 /* Pods_Yandex_Maps_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,9 +145,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DB21E4022D678FB0003CEAC1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */,
+				DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */,
+				DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */,
+				DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */,
+				DB21E3F92D6773BF003CEAC1 /* SearchResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DB862CC72D66256800B4FA50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB21E3FB2D678CF3003CEAC1 /* CoreData.framework */,
 				DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */,
 				EA8DDB6654BC64F612B4C64A /* Pods_Yandex_Maps_Test.framework */,
 			);
@@ -175,8 +201,10 @@
 				DBF865532D65FB2F0098BF48 /* Resources */,
 				DBF8656A2D6604A30098BF48 /* Extensions */,
 				DBF8655A2D65FC480098BF48 /* Coordinators */,
+				DB21E4022D678FB0003CEAC1 /* Models */,
 				DBF865502D65FA4E0098BF48 /* Moduls */,
 				DBF865462D65F6310098BF48 /* Info.plist */,
+				DB21E3FF2D678E62003CEAC1 /* Yandex Maps Test.xcdatamodeld */,
 			);
 			path = "Yandex Maps Test";
 			sourceTree = "<group>";
@@ -246,7 +274,6 @@
 		DBF8656A2D6604A30098BF48 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DB21E3F92D6773BF003CEAC1 /* SearchResult.swift */,
 				DBF8656D2D6604FB0098BF48 /* Ex-UITableView.swift */,
 				DBF8656B2D6604BF0098BF48 /* Ex-CALayer.swift */,
 				DBF8656F2D6605280098BF48 /* Ex-Reusable.swift */,
@@ -382,12 +409,14 @@
 				DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */,
 				DB1F39CF2D6668A600296B91 /* SearchResultDetailViewController.swift in Sources */,
 				DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */,
+				DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */,
 				DB1F39CA2D665D0800296B91 /* SearchResultsView.swift in Sources */,
 				DB1F39D42D6668D000296B91 /* SearchResultDetailView.swift in Sources */,
 				DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */,
 				DBF865692D6603AD0098BF48 /* SavedTableVIewCell.swift in Sources */,
 				DBF865702D6605290098BF48 /* Ex-Reusable.swift in Sources */,
 				DBF8655C2D65FC610098BF48 /* Coordinator.swift in Sources */,
+				DB21E41A2D6793C8003CEAC1 /* CoreDataManager.swift in Sources */,
 				DBF8655E2D65FC780098BF48 /* SavedCoordinator.swift in Sources */,
 				DBF865602D65FC9F0098BF48 /* LocationCoordinator.swift in Sources */,
 				DBF8656C2D6604C40098BF48 /* Ex-CALayer.swift in Sources */,
@@ -395,12 +424,15 @@
 				DB1F39CC2D665ECC00296B91 /* SearchResultCell.swift in Sources */,
 				DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */,
 				DB1F39C52D665A5F00296B91 /* SearchResultsViewController.swift in Sources */,
+				DB21E4012D678E62003CEAC1 /* Yandex Maps Test.xcdatamodeld in Sources */,
 				DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */,
 				DBF8656E2D66050E0098BF48 /* Ex-UITableView.swift in Sources */,
 				DB1F39C02D664C9800296B91 /* SearchView.swift in Sources */,
 				DB21E3FA2D6773C0003CEAC1 /* SearchResult.swift in Sources */,
 				DBF865672D66039A0098BF48 /* SavedView.swift in Sources */,
 				DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */,
+				DB21E4152D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift in Sources */,
+				DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */,
 				DBF865642D65FD6A0098BF48 /* LocationViewModel.swift in Sources */,
 				DBF865592D65FB960098BF48 /* LocationViewController.swift in Sources */,
 				DB1F39C72D665ABA00296B91 /* SearchResultsViewModel.swift in Sources */,
@@ -442,6 +474,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "www.Yandex-Maps-Testtt";
@@ -472,6 +508,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				MARKETING_VERSION = 1.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -624,6 +664,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DB21E3FF2D678E62003CEAC1 /* Yandex Maps Test.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB21E4002D678E62003CEAC1 /* Yandex Maps Test.xcdatamodel */,
+			);
+			currentVersion = DB21E4002D678E62003CEAC1 /* Yandex Maps Test.xcdatamodel */;
+			path = "Yandex Maps Test.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DBF8652D2D65F62F0098BF48 /* Project object */;
 }

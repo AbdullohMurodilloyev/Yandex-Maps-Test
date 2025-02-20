@@ -9,11 +9,9 @@ import UIKit
 
 class SavedViewController: UIViewController {
     
-    // MARK: - Properties
     private let viewModel: SavedViewModel
     private let savedView = SavedView()
     
-    // MARK: - Init
     init(viewModel: SavedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,16 +21,13 @@ class SavedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        view.backgroundColor = #colorLiteral(red: 0.9813271165, green: 0.9813271165, blue: 0.9813271165, alpha: 1)
+        setupBindings()
+        viewModel.fetchSavedLocations()
     }
     
-    
-    
-    // MARK: - Setup Methods
     private func setupView() {
         view.addSubview(savedView)
         savedView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +38,24 @@ class SavedViewController: UIViewController {
             savedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             savedView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        savedView.onDeleteLocation = { [weak self] index in
+            self?.deleteLocation(at: index)
+        }
     }
     
+    private func setupBindings() {
+        viewModel.onSavedLocationsUpdated = { [weak self] locations in
+            self?.savedView.results = locations.map {
+                SearchResult(name: $0.name ?? "",
+                             address: $0.address ?? "",
+                             latitude: $0.latitude,
+                             longitude: $0.longitude,
+                             distance: "") }
+        }
+    }
+    
+    private func deleteLocation(at index: Int) {
+        viewModel.deleteLocation(at: index)
+    }
 }

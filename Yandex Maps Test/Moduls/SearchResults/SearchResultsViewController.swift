@@ -67,7 +67,8 @@ extension SearchResultsViewController: SearchResultsViewDelegate {
     func tappedCell(result: SearchResult) {
         delegate?.didSelectSearchResult(result)
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.presentSearchResultDetail(searchResult: result)
+            guard let self = self else { return }
+            self.viewModel.presentSearchResultDetail(searchResult: result)
         }
     }
 }
