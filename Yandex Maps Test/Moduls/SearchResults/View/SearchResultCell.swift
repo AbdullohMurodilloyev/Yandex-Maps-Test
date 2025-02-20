@@ -91,9 +91,9 @@ class SearchResultCell: UITableViewCell {
         ])
     }
     
-    func configure(with title: String) {
-        titleLabel.text = title
-        subtitleLabel.text = "Toshkent, ul. O‘zbekiston Ovozi, 2"
-        distanceLabel.text = "36 м"
+    func configure(with data: SearchResult) {
+        titleLabel.text = data.name
+        subtitleLabel.text = data.address
+        distanceLabel.text = data.distance
     }
 }

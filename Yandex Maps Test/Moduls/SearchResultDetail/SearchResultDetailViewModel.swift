@@ -12,7 +12,7 @@ class SearchResultDetailViewModel {
         self.coordinator = coordinator
     }
     
-    func presentAlert() {
-        coordinator?.presentAlert()
+    func presentAlert(searchResult: SearchResult) {
+        coordinator?.presentAlert(searchResult: searchResult)
     }
 }

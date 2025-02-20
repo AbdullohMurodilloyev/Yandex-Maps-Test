@@ -6,51 +6,48 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol SearchResultsViewDelegate: AnyObject {
-    func tappedCell()
+    func tappedCell(result: SearchResult)
 }
 
 class SearchResultsView: UIView {
     
-    private let searchView = SearchView()
+    let searchView = SearchView()
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.register(cellClass: SearchResultCell.self)
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.dataSource = self
-        table.delegate = self
         table.backgroundColor = .clear
         table.showsVerticalScrollIndicator = false
-        table.separatorStyle = .none
-        table.contentInset.top = 10
         table.separatorStyle = .singleLine
+        table.contentInset.top = 10
+        table.dataSource = self
+        table.delegate = self
         return table
     }()
     
     weak var delegate: SearchResultsViewDelegate?
     
-    // MARK: - Data
-    private let results = [
-        "Le Grande Plaza Hotel",
-        "Le Grande Plaza Hotel",
-        "Le Grande Plaza Hotel",
-        "Le Grande Plaza Hotel"
-    ]
-    // MARK: - Init
+    var results: [SearchResult] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+       
         searchView.setTextFieldInteraction(enabled: true)
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup
     private func setupView() {
         backgroundColor = .white
         layer.cornerRadius = 16
@@ -74,10 +71,8 @@ class SearchResultsView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
     }
 }
-
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension SearchResultsView: UITableViewDataSource, UITableViewDelegate {
@@ -87,12 +82,14 @@ extension SearchResultsView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: SearchResultCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configure(with: results[indexPath.row])
+        let result = results[indexPath.row]
+        cell.configure(with: result)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Tanlangan joy: \(results[indexPath.row])")
-        delegate?.tappedCell()
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedResult = results[indexPath.row]
+        delegate?.tappedCell(result: selectedResult)
     }
 }

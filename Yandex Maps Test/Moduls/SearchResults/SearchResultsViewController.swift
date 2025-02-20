@@ -6,16 +6,21 @@
 //
 
 import UIKit
+import YandexMapsMobile
+
+protocol SearchResultsViewControllerDelegate: AnyObject {
+    func didSelectSearchResult(_ result: SearchResult)
+}
 
 class SearchResultsViewController: UIViewController {
     
-    // MARK: - Properties
-    private let searchResults = SearchResultsView()
+    weak var delegate: SearchResultsViewControllerDelegate?
+    private let searchResultsView = SearchResultsView()
     private let viewModel: SearchResultsViewModel
     
-    // MARK: - Init
-    init(viewModel: SearchResultsViewModel) {
+    init(viewModel: SearchResultsViewModel, delegate: SearchResultsViewControllerDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,33 +28,46 @@ class SearchResultsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupBindings()
     }
     
-    // MARK: - Setup
     private func setupView() {
         view.backgroundColor = .white
-        view.addSubview(searchResults)
-        searchResults.delegate = self
+        view.addSubview(searchResultsView)
+        searchResultsView.delegate = self
         
-        searchResults.translatesAutoresizingMaskIntoConstraints = false
+        searchResultsView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchResults.topAnchor.constraint(equalTo: view.topAnchor),
-            searchResults.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchResults.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchResults.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            searchResultsView.topAnchor.constraint(equalTo: view.topAnchor),
+            searchResultsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchResultsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchResultsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        searchResultsView.searchView.textField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+    }
+    
+    private func setupBindings() {
+        viewModel.onResultsUpdated = { [weak self] in
+            self?.searchResultsView.results = self?.viewModel.results ?? []
+        }
+    }
+
+    @objc private func searchTextChanged() {
+        if let query = searchResultsView.searchView.textField.text {
+            viewModel.performSearch(query: query)
+        }
     }
 }
 
 extension SearchResultsViewController: SearchResultsViewDelegate {
-    func tappedCell() {
+    func tappedCell(result: SearchResult) {
+        delegate?.didSelectSearchResult(result)
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.presentSearchResultDetail()
+            self?.viewModel.presentSearchResultDetail(searchResult: result)
         }
     }
 }

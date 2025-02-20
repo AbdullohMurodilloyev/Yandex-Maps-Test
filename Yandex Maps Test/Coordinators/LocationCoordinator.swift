@@ -22,9 +22,9 @@ final class LocationCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
     
-    func pushToSearchResults() {
+    func pushToSearchResults(delegate: SearchResultsViewControllerDelegate) {
         let vm = SearchResultsViewModel(coordinator: self)
-        let vc = SearchResultsViewController(viewModel: vm)
+        let vc = SearchResultsViewController(viewModel: vm, delegate: delegate)
         vc.modalPresentationStyle = .pageSheet
         if let sheet = vc.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
@@ -33,9 +33,9 @@ final class LocationCoordinator: Coordinator {
         navigationController.present(vc, animated: true)
     }
     
-    func presentSearchResultDetail() {
+    func presentSearchResultDetail(searchResult: SearchResult) {
         let vm = SearchResultDetailViewModel(coordinator: self)
-        let vc = SearchResultDetailViewController(viewModel: vm)
+        let vc = SearchResultDetailViewController(viewModel: vm, searchResult: searchResult)
         if let sheet = vc.sheetPresentationController {
             sheet.detents = [.custom { _ in
                 return 170
@@ -45,9 +45,9 @@ final class LocationCoordinator: Coordinator {
         navigationController.present(vc, animated: true)
     }
     
-    func presentAlert() {
+    func presentAlert(searchResult: SearchResult) {
         let vm = CustomCenteredAlertViewModel(coordinator: self)
-        let vc = CustomCenteredAlertViewController(viewModel: vm)
+        let vc = CustomCenteredAlertViewController(viewModel: vm, searchResult: searchResult)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         navigationController.present(vc, animated: true)

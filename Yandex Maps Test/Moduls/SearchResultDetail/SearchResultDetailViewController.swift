@@ -1,10 +1,3 @@
-//
-//  SearchResultDetailViewController.swift
-//  Yandex Maps Test
-//
-//  Created by Abdulloh Murodilloyev on 20/02/25.
-//
-
 import UIKit
 
 class SearchResultDetailViewController: UIViewController {
@@ -12,10 +5,12 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Properties
     private let detailView = SearchResultDetailView()
     private let viewModel: SearchResultDetailViewModel
+    private let searchResult: SearchResult
     
     // MARK: - Init
-    init(viewModel: SearchResultDetailViewModel) {
+    init(viewModel: SearchResultDetailViewModel, searchResult: SearchResult) {
         self.viewModel = viewModel
+        self.searchResult = searchResult
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,12 +22,12 @@ class SearchResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        configureView()
     }
     
     private func setupView() {
         view.addSubview(detailView)
         detailView.delegate = self
-        
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -43,17 +38,20 @@ class SearchResultDetailViewController: UIViewController {
         ])
     }
     
-    func configure(with hotelName: String, address: String, rating: Int, reviews: Int) {
-        detailView.configure(with: hotelName, address: address, rating: rating, reviews: reviews)
+    private func configureView() {
+        detailView.configure(
+            with: searchResult.name,
+            address: searchResult.address
+        )
     }
-    
 }
 
-// MARK: Delegate
+// MARK: - SearchResultDetailViewDelegate
 extension SearchResultDetailViewController: SearchResultDetailViewDelegate {
     func tappedFavoriteAddressAlert() {
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.presentAlert()
+            guard let self = self else { return }
+            self.viewModel.presentAlert(searchResult: self.searchResult)
         }
     }
 }
