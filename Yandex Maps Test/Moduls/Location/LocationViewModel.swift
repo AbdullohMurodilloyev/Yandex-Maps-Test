@@ -7,8 +7,10 @@
 
 import YandexMapsMobile
 
-class LocationViewModel {
+class LocationViewModel: NSObject, YMKMapObjectTapListener {
     private weak var coordinator: LocationCoordinator?
+    private var searchSession: YMKSearchSession?
+    private var selectedPlacemark: YMKPlacemarkMapObject?
     
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
@@ -18,19 +20,24 @@ class LocationViewModel {
         coordinator?.pushToSearchResults(delegate: delegate)
     }
     
+    func presentSearchResultDetail(searchResult: SearchResult) {
+        coordinator?.presentSearchResultDetail(searchResult: searchResult)
+    }
+    
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
         moveMap(to: initialPoint, zoom: 11, on: mapView)
     }
     
     func moveToUserLocation(on mapView: YMKMapView) {
-        let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401) // Replace with actual user location logic
-        moveMap(to: userLocation, zoom: 14, on: mapView)
+        let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401)
+        addSelectedPlacemark(at: userLocation, on: mapView)
+        moveMap(to: userLocation, zoom: 15, on: mapView)
     }
     
     func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView) {
         let locationPoint = YMKPoint(latitude: latitude, longitude: longitude)
-        addPlacemark(at: locationPoint, on: mapView)
+        addSelectedPlacemark(at: locationPoint, on: mapView)
         moveMap(to: locationPoint, zoom: 15, on: mapView)
     }
     
@@ -42,10 +49,59 @@ class LocationViewModel {
         )
     }
     
-    private func addPlacemark(at point: YMKPoint, on mapView: YMKMapView) {
+    private func addSelectedPlacemark(at point: YMKPoint, on mapView: YMKMapView) {
         let mapObjects = mapView.mapWindow.map.mapObjects
-        mapObjects.clear()
-        let placemark = mapObjects.addPlacemark(with: point)
-        placemark.setIconWith(UIImage(named: "pin") ?? UIImage())
+        selectedPlacemark?.parent.remove(with: selectedPlacemark!)
+        
+        selectedPlacemark = mapObjects.addPlacemark(with: point)
+        selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
+        
+        fetchPlaceName(for: point) { [weak self] name, address in
+            self?.selectedPlacemark?.userData = SearchResult(
+                name: name,
+                address: address,
+                latitude: point.latitude,
+                longitude: point.longitude,
+                distance: "")
+            print("Joy nomi: \(name), Manzil: \(address)")
+        }
+        
+        selectedPlacemark?.addTapListener(with: self)
     }
+    
+    // **Placemark bosilganda SearchResult ma'lumotlarini ochish**
+    func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
+        if let searchResult = mapObject.userData as? SearchResult {
+            presentSearchResultDetail(searchResult: searchResult)
+        }
+        return true
+    }
+    
+    
+    func fetchPlaceName(for point: YMKPoint, completion: @escaping (String, String) -> Void) {
+        let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
+        let searchOptions = YMKSearchOptions()
+        searchOptions.resultPageSize = 1
+
+        searchSession = searchManager.submit(
+            with: point,
+            zoom: 18,
+            searchOptions: searchOptions
+        ) { [weak self] response, error in
+            guard let self = self else { return }
+            
+            if let response = response, let firstResult = response.collection.children.first?.obj {
+                let name = firstResult.name ?? "Noma'lum joy"
+                let address = firstResult.descriptionText ?? "Manzil mavjud emas"
+                completion(name, address)
+            } else {
+                print("Search error: \(error?.localizedDescription ?? "Unknown error")")
+                completion("Noma'lum joy", "Manzil mavjud emas")
+            }
+        }
+    }
+
+    
 }
+
+
