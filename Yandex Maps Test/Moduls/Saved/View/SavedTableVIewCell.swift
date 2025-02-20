@@ -13,7 +13,6 @@ class SavedTableVIewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.text = "Le Grande Plaza Hotel"
         label.textColor = .black
         return label
     }()
@@ -21,7 +20,6 @@ class SavedTableVIewCell: UITableViewCell {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.text = "ул. Узбекистон Овози, 2"
         label.textColor = .lightGray
         return label
     }()
@@ -94,5 +92,10 @@ class SavedTableVIewCell: UITableViewCell {
             iconImageView.widthAnchor.constraint(equalToConstant: 32),
             iconImageView.heightAnchor.constraint(equalToConstant: 32)
         ])
+    }
+    
+    func configure(with data: SearchResult) {
+        titleLabel.text = data.name
+        subtitleLabel.text = data.address
     }
 }

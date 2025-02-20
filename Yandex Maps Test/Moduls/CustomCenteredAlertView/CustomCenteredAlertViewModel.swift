@@ -11,4 +11,8 @@ class CustomCenteredAlertViewModel {
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
     }
+    
+    func saveLocation(_ searchResult: SearchResult) {
+        DataBaseHelper.shared.saveLocation(data: searchResult)
+    }
 }

@@ -34,7 +34,8 @@ class CustomCenteredAlertViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .clear
         view.addSubview(alertView)
-        alertView.configure(title: "Добавить адрес в избранное", message: searchResult.address)
+        alertView.configure(title: "Добавить адрес в избранное",
+                            message: searchResult.address)
         alertView.show(in: view)
         
         alertView.onCancel = { [weak self] in
@@ -42,9 +43,14 @@ class CustomCenteredAlertViewController: UIViewController {
         }
         
         alertView.onConfirm = { [weak self] in
+            if let data = self?.searchResult {
+                self?.viewModel.saveLocation(data)
+            }
+           
             self?.dismiss(animated: true) {
                 AppDelegate.shared?.startMainFlow()
             }
         }
+
     }
 }

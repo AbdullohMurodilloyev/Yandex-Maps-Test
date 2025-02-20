@@ -22,6 +22,14 @@ class SavedView: UIView {
         return table
     }()
     
+    var onDeleteLocation: ((Int) -> Void)?
+    
+    var results: [SearchResult] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,11 +57,22 @@ class SavedView: UIView {
 // MARK: - UITableView DataSource & Delegate
 extension SavedView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: SavedTableVIewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.configure(with: results[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            onDeleteLocation?(indexPath.row)
+        }
     }
 }
