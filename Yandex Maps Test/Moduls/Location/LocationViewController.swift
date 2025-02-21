@@ -41,12 +41,7 @@ class LocationViewController: UIViewController {
     }
     
     private func moveCamera(to point: YMKPoint) {
-        let cameraPosition = YMKCameraPosition(target: point, zoom: 15, azimuth: 0, tilt: 0)
-        mapView.mapWindow.map.move(
-            with: cameraPosition,
-            animationType: YMKAnimation(type: .smooth, duration: 1),
-            cameraCallback: nil
-        )
+        viewModel.moveMap(to: point, zoom: 15, on: mapView)
     }
 }
 
