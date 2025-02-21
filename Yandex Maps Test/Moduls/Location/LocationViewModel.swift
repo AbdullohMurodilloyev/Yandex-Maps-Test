@@ -7,15 +7,20 @@
 
 import YandexMapsMobile
 
-class LocationViewModel: NSObject, YMKMapObjectTapListener {
+class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragListener {
+    
+    // MARK: - Properties
     private weak var coordinator: LocationCoordinator?
     private var searchSession: YMKSearchSession?
     private var selectedPlacemark: YMKPlacemarkMapObject?
+    var onDrag: ((YMKPoint) -> Void)?
     
+    // MARK: - Init
     init(coordinator: LocationCoordinator?) {
         self.coordinator = coordinator
     }
     
+    // MARK: - Navigation Methods
     func pushToSearchResults(delegate: SearchResultsViewControllerDelegate) {
         coordinator?.pushToSearchResults(delegate: delegate)
     }
@@ -23,7 +28,8 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener {
     func presentSearchResultDetail(searchResult: SearchResult) {
         coordinator?.presentSearchResultDetail(searchResult: searchResult)
     }
-    
+
+    // MARK: - Map Interaction Methods
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
         moveMap(to: initialPoint, zoom: 11, on: mapView)
@@ -31,77 +37,82 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener {
     
     func moveToUserLocation(on mapView: YMKMapView) {
         let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401)
-        addSelectedPlacemark(at: userLocation, on: mapView)
+        updatePlacemark(at: userLocation, on: mapView)
         moveMap(to: userLocation, zoom: 15, on: mapView)
     }
     
     func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView) {
         let locationPoint = YMKPoint(latitude: latitude, longitude: longitude)
-        addSelectedPlacemark(at: locationPoint, on: mapView)
+        updatePlacemark(at: locationPoint, on: mapView)
         moveMap(to: locationPoint, zoom: 15, on: mapView)
     }
-    
-    private func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
-        mapView.mapWindow.map.move(
-            with: YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 30.0),
-            animationType: YMKAnimation(type: .smooth, duration: 1),
-            cameraCallback: nil
-        )
+
+    func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
+        let cameraPosition = YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 0)
+        mapView.mapWindow.map.move(with: cameraPosition,
+                                   animationType: YMKAnimation(type: .smooth, duration: 1),
+                                   cameraCallback: nil)
     }
     
-    private func addSelectedPlacemark(at point: YMKPoint, on mapView: YMKMapView) {
+    private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView) {
         let mapObjects = mapView.mapWindow.map.mapObjects
         selectedPlacemark?.parent.remove(with: selectedPlacemark!)
-        
+
         selectedPlacemark = mapObjects.addPlacemark(with: point)
         selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
-        
+        selectedPlacemark?.isDraggable = true
+
         fetchPlaceName(for: point) { [weak self] name, address in
-            self?.selectedPlacemark?.userData = SearchResult(
-                name: name,
-                address: address,
-                latitude: point.latitude,
-                longitude: point.longitude,
-                distance: "")
-            print("Joy nomi: \(name), Manzil: \(address)")
+            guard let self = self else { return }
+            let searchResult = SearchResult(name: name, address: address, latitude: point.latitude, longitude: point.longitude, distance: "")
+            self.selectedPlacemark?.userData = searchResult
         }
-        
+
         selectedPlacemark?.addTapListener(with: self)
+        selectedPlacemark?.setDragListenerWith(self)
     }
     
-    // **Placemark bosilganda SearchResult ma'lumotlarini ochish**
+    // MARK: - Map Object Delegate Methods
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
-        if let searchResult = mapObject.userData as? SearchResult {
-            presentSearchResultDetail(searchResult: searchResult)
-        }
+        guard let placemark = mapObject as? YMKPlacemarkMapObject,
+              let searchResult = placemark.userData as? SearchResult else { return false }
+        
+        presentSearchResultDetail(searchResult: searchResult)
         return true
     }
     
-    
-    func fetchPlaceName(for point: YMKPoint, completion: @escaping (String, String) -> Void) {
+    func onMapObjectDragStart(with mapObject: YMKMapObject) {}
+
+    func onMapObjectDrag(with mapObject: YMKMapObject, point: YMKPoint) {
+        onDrag?(point)
+    }
+
+    func onMapObjectDragEnd(with mapObject: YMKMapObject) {
+        guard let placemark = mapObject as? YMKPlacemarkMapObject else { return }
+        let newPoint = placemark.geometry
+        
+        fetchPlaceName(for: newPoint) { [weak self] name, address in
+            guard let self = self else { return }
+            let searchResult = SearchResult(name: name, address: address, latitude: newPoint.latitude, longitude: newPoint.longitude, distance: "")
+            self.selectedPlacemark?.userData = searchResult
+            self.presentSearchResultDetail(searchResult: searchResult)
+        }
+    }
+
+    // MARK: - Search Methods
+    private func fetchPlaceName(for point: YMKPoint, completion: @escaping (String, String) -> Void) {
         let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
         let searchOptions = YMKSearchOptions()
         searchOptions.resultPageSize = 1
 
-        searchSession = searchManager.submit(
-            with: point,
-            zoom: 18,
-            searchOptions: searchOptions
-        ) { [weak self] response, error in
-            guard let self = self else { return }
-            
+        searchSession = searchManager.submit(with: point, zoom: 18, searchOptions: searchOptions) { response, error in
             if let response = response, let firstResult = response.collection.children.first?.obj {
                 let name = firstResult.name ?? "Noma'lum joy"
                 let address = firstResult.descriptionText ?? "Manzil mavjud emas"
                 completion(name, address)
             } else {
-                print("Search error: \(error?.localizedDescription ?? "Unknown error")")
                 completion("Noma'lum joy", "Manzil mavjud emas")
             }
         }
     }
-
-    
 }
-
-
