@@ -31,6 +31,17 @@ class LocationViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupMap()
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        viewModel.onDrag = { [weak self] point in
+            self?.moveCamera(to: point)
+        }
+    }
+    
+    private func moveCamera(to point: YMKPoint) {
+        viewModel.moveMap(to: point, zoom: 15, on: mapView)
     }
 }
 
