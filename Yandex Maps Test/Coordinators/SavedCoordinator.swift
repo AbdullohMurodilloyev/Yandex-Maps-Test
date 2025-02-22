@@ -9,10 +9,12 @@ import UIKit
 
 final class SavedCoordinator: Coordinator {
     
-    internal var navigationController: UINavigationController
+    var navigationController: UINavigationController
+    weak var parentCoordinator: TabbarCoordinator?  
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, parentCoordinator: TabbarCoordinator?) {
         self.navigationController = navigationController
+        self.parentCoordinator = parentCoordinator
     }
     
     func start() {
@@ -23,5 +25,7 @@ final class SavedCoordinator: Coordinator {
         navigationController.viewControllers = [vc]
     }
     
-    
+    func goToLocationScreen(data: SearchResult) {
+        parentCoordinator?.switchToCoordinator(select: 1, data: data)
+    }
 }

@@ -31,12 +31,17 @@ class LocationViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupMap()
-        setupBindings()
+        bindViewModel()
+        
     }
     
-    private func setupBindings() {
+    private func bindViewModel() {
         viewModel.onDrag = { [weak self] point in
             self?.moveCamera(to: point)
+        }
+        if let searchResult = viewModel.searchResult {
+            viewModel.moveToLocation(latitude: searchResult.latitude,
+                                     longitude: searchResult.longitude, on: mapView)
         }
     }
     

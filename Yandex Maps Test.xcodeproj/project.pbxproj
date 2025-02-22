@@ -22,6 +22,12 @@
 		DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */; };
 		DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */; };
 		DB21E41A2D6793C8003CEAC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */; };
+		DBA49A972D69CE9900C5744A /* SearchLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */; };
+		DBA49A9A2D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */; };
+		DBA49A9B2D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */; };
+		DBA49A9D2D69FB4600C5744A /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */; };
+		DBA49A9F2D6A4D9C00C5744A /* LocationSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A9E2D6A4D9B00C5744A /* LocationSearchManager.swift */; };
+		DBA49AA12D6A4DC300C5744A /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49AA02D6A4DC200C5744A /* DistanceCalculator.swift */; };
 		DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */; };
 		DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */; };
 		DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */; };
@@ -63,6 +69,12 @@
 		DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
 		DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationManager.swift; sourceTree = "<group>"; };
+		DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
+		DBA49A9E2D6A4D9B00C5744A /* LocationSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchManager.swift; sourceTree = "<group>"; };
+		DBA49AA02D6A4DC200C5744A /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertView.swift; sourceTree = "<group>"; };
 		DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewController.swift; sourceTree = "<group>"; };
 		DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewModel.swift; sourceTree = "<group>"; };
@@ -148,10 +160,11 @@
 		DB21E4022D678FB0003CEAC1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DBA49A952D69CE7100C5744A /* SavedSearch */,
+				DBA49A942D69CE5000C5744A /* SavedLocation */,
+				DBA49A9E2D6A4D9B00C5744A /* LocationSearchManager.swift */,
 				DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */,
-				DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */,
-				DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */,
-				DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */,
+				DBA49AA02D6A4DC200C5744A /* DistanceCalculator.swift */,
 				DB21E3F92D6773BF003CEAC1 /* SearchResult.swift */,
 			);
 			path = Models;
@@ -165,6 +178,26 @@
 				EA8DDB6654BC64F612B4C64A /* Pods_Yandex_Maps_Test.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DBA49A942D69CE5000C5744A /* SavedLocation */ = {
+			isa = PBXGroup;
+			children = (
+				DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */,
+				DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */,
+				DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */,
+			);
+			path = SavedLocation;
+			sourceTree = "<group>";
+		};
+		DBA49A952D69CE7100C5744A /* SavedSearch */ = {
+			isa = PBXGroup;
+			children = (
+				DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */,
+				DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */,
+				DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */,
+			);
+			path = SavedSearch;
 			sourceTree = "<group>";
 		};
 		DBAD4C482D668F1B00E1BE60 /* CustomCenteredAlertView */ = {
@@ -255,6 +288,7 @@
 		DBF8655A2D65FC480098BF48 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */,
 				DBF8655B2D65FC5A0098BF48 /* Coordinator.swift */,
 				DBF8655D2D65FC700098BF48 /* SavedCoordinator.swift */,
 				DBF8655F2D65FC980098BF48 /* LocationCoordinator.swift */,
@@ -405,12 +439,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA49A9F2D6A4D9C00C5744A /* LocationSearchManager.swift in Sources */,
 				DB1F39D12D6668B700296B91 /* SearchResultDetailViewModel.swift in Sources */,
 				DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */,
+				DBA49A9A2D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift in Sources */,
+				DBA49A9B2D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift in Sources */,
 				DB1F39CF2D6668A600296B91 /* SearchResultDetailViewController.swift in Sources */,
 				DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */,
 				DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */,
 				DB1F39CA2D665D0800296B91 /* SearchResultsView.swift in Sources */,
+				DBA49A972D69CE9900C5744A /* SearchLocationManager.swift in Sources */,
 				DB1F39D42D6668D000296B91 /* SearchResultDetailView.swift in Sources */,
 				DBF865392D65F62F0098BF48 /* AppDelegate.swift in Sources */,
 				DBF865692D6603AD0098BF48 /* SavedTableVIewCell.swift in Sources */,
@@ -430,6 +468,8 @@
 				DB1F39C02D664C9800296B91 /* SearchView.swift in Sources */,
 				DB21E3FA2D6773C0003CEAC1 /* SearchResult.swift in Sources */,
 				DBF865672D66039A0098BF48 /* SavedView.swift in Sources */,
+				DBA49A9D2D69FB4600C5744A /* TabbarCoordinator.swift in Sources */,
+				DBA49AA12D6A4DC300C5744A /* DistanceCalculator.swift in Sources */,
 				DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */,
 				DB21E4152D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift in Sources */,
 				DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */,

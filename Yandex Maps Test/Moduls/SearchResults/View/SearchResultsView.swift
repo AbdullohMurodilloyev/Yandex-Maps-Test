@@ -6,15 +6,18 @@
 //
 
 import UIKit
-import CoreLocation
 
 protocol SearchResultsViewDelegate: AnyObject {
-    func tappedCell(result: SearchResult)
+    func didTapCell(result: SearchResult)
+    func didRequestDeleteLocation(at index: Int)
+    func didChangeSearchQuery(_ query: String)
 }
 
 class SearchResultsView: UIView {
     
-    let searchView = SearchView()
+    weak var delegate: SearchResultsViewDelegate?
+    
+    private let searchView = SearchView()
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
@@ -28,20 +31,20 @@ class SearchResultsView: UIView {
         table.delegate = self
         return table
     }()
-    
-    weak var delegate: SearchResultsViewDelegate?
+
     
     var results: [SearchResult] = [] {
-        didSet {
-            tableView.reloadData()
-        }
+        didSet { tableView.reloadData() }
+    }
+    
+    var isSearching = false {
+        didSet { tableView.setEditing(!isSearching, animated: true) }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-       
-        searchView.setTextFieldInteraction(enabled: true)
+        searchView.textField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -72,9 +75,12 @@ class SearchResultsView: UIView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+    @objc private func searchTextChanged() {
+        delegate?.didChangeSearchQuery(searchView.textField.text ?? "")
+    }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
 extension SearchResultsView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count
@@ -82,14 +88,22 @@ extension SearchResultsView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: SearchResultCell = tableView.dequeueReusableCell(for: indexPath)
-        let result = results[indexPath.row]
-        cell.configure(with: result)
+        cell.configure(with: results[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedResult = results[indexPath.row]
-        delegate?.tappedCell(result: selectedResult)
+        delegate?.didTapCell(result: results[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return !isSearching
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            delegate?.didRequestDeleteLocation(at: indexPath.row)
+        }
     }
 }

@@ -1,15 +1,15 @@
 //
-//  DataBaseHelper.swift
+//  SearchLocationManager.swift
 //  Yandex Maps Test
 //
-//  Created by Abdulloh Murodilloyev on 20/02/25.
+//  Created by Abdulloh Murodilloyev on 22/02/25.
 //
 
 import Foundation
 import CoreData
 
-class DataBaseHelper {
-    static let shared = DataBaseHelper()
+class SearchLocationManager {
+    static let shared = SearchLocationManager()
     
     private init() {} // Singleton'ni tashqaridan init qilishni oldini olamiz
     
@@ -23,11 +23,12 @@ class DataBaseHelper {
             return
         }
         
-        let newLocation = SavedLocation(context: context)
+        let newLocation = SaveSearchLocation(context: context)
         newLocation.name = data.name
         newLocation.address = data.address
         newLocation.latitude = data.latitude
         newLocation.longitude = data.longitude
+        newLocation.distance = data.distance
 
         do {
             try context.save()
@@ -38,20 +39,20 @@ class DataBaseHelper {
     }
     
     // MARK: - Fetch Locations
-    func fetchLocations() -> Result<[SavedLocation], Error> {
+    func fetchLocations() -> Result<[SaveSearchLocation], Error> {
         let context = CoreDataManager.shared.context
-        let fetchRequest: NSFetchRequest<SavedLocation> = SavedLocation.fetchRequest()
+        let fetchRequest: NSFetchRequest<SaveSearchLocation> = SaveSearchLocation.fetchRequest()
 
         do {
             let locations = try context.fetch(fetchRequest)
-            return .success(locations)
+            return .success(locations.reversed())
         } catch {
             return .failure(error)
         }
     }
     
     // MARK: - Delete Location
-    func deleteLocation(_ location: SavedLocation, completion: (() -> Void)? = nil) {
+    func deleteLocation(_ location: SaveSearchLocation, completion: (() -> Void)? = nil) {
         let context = CoreDataManager.shared.context
         context.delete(location)
 
@@ -67,7 +68,7 @@ class DataBaseHelper {
     // MARK: - Check If Location Exists
     private func isLocationAlreadySaved(name: String) -> Bool {
         let context = CoreDataManager.shared.context
-        let fetchRequest: NSFetchRequest<SavedLocation> = SavedLocation.fetchRequest()
+        let fetchRequest: NSFetchRequest<SaveSearchLocation> = SaveSearchLocation.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
         
         do {

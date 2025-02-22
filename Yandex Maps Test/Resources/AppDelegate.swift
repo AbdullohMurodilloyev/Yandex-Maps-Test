@@ -12,7 +12,7 @@ import YandexMapsMobile
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    static var shared: AppDelegate?
+    //static var shared: AppDelegate?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -36,18 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     private func setupMainWindow() {
-        Self.shared = self
+       // Self.shared = self
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
     }
     
     func startMainFlow() {
-        let tabBarController = TabbarController()
-        window?.rootViewController = tabBarController
-    }
-    
-    
+        let tabBarCoordinator = TabbarCoordinator()
+        tabBarCoordinator.start()
+        window?.rootViewController = tabBarCoordinator.tabBarController
+    }    
     
 }
 

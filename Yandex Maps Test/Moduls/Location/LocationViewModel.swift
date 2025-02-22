@@ -11,13 +11,15 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     
     // MARK: - Properties
     private weak var coordinator: LocationCoordinator?
-    private var searchSession: YMKSearchSession?
     private var selectedPlacemark: YMKPlacemarkMapObject?
+    private(set) var searchResult: SearchResult?
+    
     var onDrag: ((YMKPoint) -> Void)?
     
     // MARK: - Init
-    init(coordinator: LocationCoordinator?) {
+    init(coordinator: LocationCoordinator?, searchResult: SearchResult? = nil) {
         self.coordinator = coordinator
+        self.searchResult = searchResult
     }
     
     // MARK: - Navigation Methods
@@ -28,7 +30,7 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     func presentSearchResultDetail(searchResult: SearchResult) {
         coordinator?.presentSearchResultDetail(searchResult: searchResult)
     }
-
+    
     // MARK: - Map Interaction Methods
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
@@ -46,7 +48,7 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
         updatePlacemark(at: locationPoint, on: mapView)
         moveMap(to: locationPoint, zoom: 15, on: mapView)
     }
-
+    
     func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
         let cameraPosition = YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 30.0)
         mapView.mapWindow.map.move(with: cameraPosition,
@@ -57,17 +59,23 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView) {
         let mapObjects = mapView.mapWindow.map.mapObjects
         selectedPlacemark?.parent.remove(with: selectedPlacemark!)
-
+        
         selectedPlacemark = mapObjects.addPlacemark(with: point)
         selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
         selectedPlacemark?.isDraggable = true
+        
+        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
+            guard let self = self, let result = result else { return }
+            
+            self.selectedPlacemark?.userData = result
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                guard let self = self else { return }
+                self.presentSearchResultDetail(searchResult: result)
+            }
 
-        fetchPlaceName(for: point) { [weak self] name, address in
-            guard let self = self else { return }
-            let searchResult = SearchResult(name: name, address: address, latitude: point.latitude, longitude: point.longitude, distance: "")
-            self.selectedPlacemark?.userData = searchResult
         }
-
+        
         selectedPlacemark?.addTapListener(with: self)
         selectedPlacemark?.setDragListenerWith(self)
     }
@@ -76,42 +84,27 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
         guard let placemark = mapObject as? YMKPlacemarkMapObject,
               let searchResult = placemark.userData as? SearchResult else { return false }
-        
         presentSearchResultDetail(searchResult: searchResult)
         return true
     }
     
     func onMapObjectDragStart(with mapObject: YMKMapObject) {}
-
+    
     func onMapObjectDrag(with mapObject: YMKMapObject, point: YMKPoint) {
         onDrag?(point)
     }
-
+    
     func onMapObjectDragEnd(with mapObject: YMKMapObject) {
         guard let placemark = mapObject as? YMKPlacemarkMapObject else { return }
-        let newPoint = placemark.geometry
+        let point = placemark.geometry
         
-        fetchPlaceName(for: newPoint) { [weak self] name, address in
-            guard let self = self else { return }
-            let searchResult = SearchResult(name: name, address: address, latitude: newPoint.latitude, longitude: newPoint.longitude, distance: "")
-            self.selectedPlacemark?.userData = searchResult
-            self.presentSearchResultDetail(searchResult: searchResult)
-        }
-    }
-
-    // MARK: - Search Methods
-    private func fetchPlaceName(for point: YMKPoint, completion: @escaping (String, String) -> Void) {
-        let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
-        let searchOptions = YMKSearchOptions()
-        searchOptions.resultPageSize = 1
-
-        searchSession = searchManager.submit(with: point, zoom: 18, searchOptions: searchOptions) { response, error in
-            if let response = response, let firstResult = response.collection.children.first?.obj {
-                let name = firstResult.name ?? "Noma'lum joy"
-                let address = firstResult.descriptionText ?? "Manzil mavjud emas"
-                completion(name, address)
-            } else {
-                completion("Noma'lum joy", "Manzil mavjud emas")
+        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
+            guard let self = self, let result = result else { return }
+            
+            self.selectedPlacemark?.userData = result
+            
+            DispatchQueue.main.async {
+                self.presentSearchResultDetail(searchResult: result)
             }
         }
     }
