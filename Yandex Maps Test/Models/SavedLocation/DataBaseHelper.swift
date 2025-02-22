@@ -44,7 +44,7 @@ class DataBaseHelper {
 
         do {
             let locations = try context.fetch(fetchRequest)
-            return .success(locations)
+            return .success(locations.reversed())
         } catch {
             return .failure(error)
         }
