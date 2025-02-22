@@ -25,6 +25,7 @@
 		DBA49A972D69CE9900C5744A /* SearchLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */; };
 		DBA49A9A2D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */; };
 		DBA49A9B2D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */; };
+		DBA49A9D2D69FB4600C5744A /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */; };
 		DBAD4C472D6678E100E1BE60 /* CustomCenteredAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */; };
 		DBAD4C4A2D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */; };
 		DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */; };
@@ -69,6 +70,7 @@
 		DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationManager.swift; sourceTree = "<group>"; };
 		DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		DBAD4C462D6678DF00E1BE60 /* CustomCenteredAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertView.swift; sourceTree = "<group>"; };
 		DBAD4C492D668F6A00E1BE60 /* CustomCenteredAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewController.swift; sourceTree = "<group>"; };
 		DBAD4C4B2D6692A500E1BE60 /* CustomCenteredAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCenteredAlertViewModel.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		DBF8655A2D65FC480098BF48 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */,
 				DBF8655B2D65FC5A0098BF48 /* Coordinator.swift */,
 				DBF8655D2D65FC700098BF48 /* SavedCoordinator.swift */,
 				DBF8655F2D65FC980098BF48 /* LocationCoordinator.swift */,
@@ -458,6 +461,7 @@
 				DB1F39C02D664C9800296B91 /* SearchView.swift in Sources */,
 				DB21E3FA2D6773C0003CEAC1 /* SearchResult.swift in Sources */,
 				DBF865672D66039A0098BF48 /* SavedView.swift in Sources */,
+				DBA49A9D2D69FB4600C5744A /* TabbarCoordinator.swift in Sources */,
 				DBF865622D65FCFE0098BF48 /* SavedViewModel.swift in Sources */,
 				DB21E4152D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift in Sources */,
 				DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */,

@@ -10,13 +10,15 @@ import UIKit
 final class LocationCoordinator: Coordinator {
     
     internal var navigationController: UINavigationController
+    weak var parentCoordinator: TabbarCoordinator?
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, parentCoordinator: TabbarCoordinator?) {
         self.navigationController = navigationController
+        self.parentCoordinator = parentCoordinator
     }
     
-    func start() {
-        let vm = LocationViewModel(coordinator: self)
+    func start(searchResult: SearchResult? = nil) {
+        let vm = LocationViewModel(coordinator: self, searchResult: searchResult)
         let vc = LocationViewController(viewModel: vm)
         vc.tabBarItem.image = UIImage(named: "location")
         navigationController.viewControllers = [vc]
@@ -30,7 +32,7 @@ final class LocationCoordinator: Coordinator {
             sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
         }
-        navigationController.present(vc, animated: true)
+        navigationController.topViewController?.present(vc, animated: true)
     }
     
     func presentSearchResultDetail(searchResult: SearchResult) {
@@ -42,7 +44,7 @@ final class LocationCoordinator: Coordinator {
             }]
             sheet.prefersGrabberVisible = true
         }
-        navigationController.present(vc, animated: true)
+        navigationController.topViewController?.present(vc, animated: true)
     }
     
     func presentAlert(searchResult: SearchResult) {
@@ -50,7 +52,10 @@ final class LocationCoordinator: Coordinator {
         let vc = CustomCenteredAlertViewController(viewModel: vm, searchResult: searchResult)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
-        navigationController.present(vc, animated: true)
-    }    
+        navigationController.topViewController?.present(vc, animated: true)
+    }
     
+    func goToLocationScreen() {
+        parentCoordinator?.switchToCoordinator()
+    }
 }

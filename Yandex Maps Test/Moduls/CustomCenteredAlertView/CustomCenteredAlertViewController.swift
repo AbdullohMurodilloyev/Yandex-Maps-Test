@@ -48,9 +48,8 @@ class CustomCenteredAlertViewController: UIViewController {
             }
            
             self?.dismiss(animated: true) {
-                AppDelegate.shared?.startMainFlow()
+                self?.viewModel.goToLocation()
             }
         }
-
     }
 }

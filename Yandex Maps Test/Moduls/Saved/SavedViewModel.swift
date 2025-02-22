@@ -41,4 +41,8 @@ class SavedViewModel {
             self?.savedLocations.remove(at: index)
         }
     }
+    
+    func goToLocation(data: SearchResult) {
+        coordinator?.goToLocationScreen(data: data)
+    }
 }

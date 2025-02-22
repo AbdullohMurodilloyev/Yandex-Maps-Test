@@ -9,27 +9,26 @@ import UIKit
 
 class TabbarController: UITabBarController {
     
-    // MARK: - Coordinators
-    private let savedCoordinator = SavedCoordinator(navigationController: UINavigationController())
-    private let locationCoordinator = LocationCoordinator(navigationController: UINavigationController())
-  
+    // MARK: - Coordinator
+    private let tabBarCoordinator: TabbarCoordinator
+
+    // MARK: - Init
+    init(tabBarCoordinator: TabbarCoordinator) {
+        self.tabBarCoordinator = tabBarCoordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCoordinators()
         setupTabBar()
     }
     
     // MARK: - Setup Methods
-    private func setupCoordinators() {
-        savedCoordinator.start()
-        locationCoordinator.start()
-        viewControllers = [
-            savedCoordinator.navigationController,
-            locationCoordinator.navigationController
-        ]
-    }
-    
     private func setupTabBar() {
         tabBar.backgroundColor = .white
         tabBar.tintColor = .black
@@ -39,4 +38,6 @@ class TabbarController: UITabBarController {
         tabBar.layer.applyShadow()
     }
 }
+
+
 

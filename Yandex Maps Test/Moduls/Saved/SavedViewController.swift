@@ -9,9 +9,11 @@ import UIKit
 
 class SavedViewController: UIViewController {
     
+    // MARK: - Properties
     private let viewModel: SavedViewModel
     private let savedView = SavedView()
     
+    // MARK: - Init
     init(viewModel: SavedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -21,10 +23,16 @@ class SavedViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
+        viewModel.fetchSavedLocations()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.fetchSavedLocations()
     }
     
@@ -59,7 +67,7 @@ class SavedViewController: UIViewController {
 // MARK: - SavedViewDelegate
 extension SavedViewController: SavedViewDelegate {
     func didTapCell(result: SearchResult) {
-        print(result)
+        viewModel.goToLocation(data: result)
     }
     
     func didDeleteLocation(at index: Int) {
