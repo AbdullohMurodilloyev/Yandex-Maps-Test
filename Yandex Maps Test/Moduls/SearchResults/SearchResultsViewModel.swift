@@ -6,18 +6,14 @@
 //
 
 import YandexMapsMobile
-import CoreLocation
 
 class SearchResultsViewModel {
     private weak var coordinator: LocationCoordinator?
-    private let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
-    
-    private var searchSession: YMKSearchSession?
     private(set) var results: [SearchResult] = []
     
     var onResultsUpdated: (() -> Void)?
-    
     var onSavedLocationsUpdated: (([SaveSearchLocation]) -> Void)?
+    
     private(set) var saveSearchLocations: [SaveSearchLocation] = [] {
         didSet { onSavedLocationsUpdated?(saveSearchLocations) }
     }
@@ -33,49 +29,18 @@ class SearchResultsViewModel {
             return
         }
         
-        let searchOptions = YMKSearchOptions()
-        searchOptions.resultPageSize = 10
-        
-        let tashkentBoundingBox = YMKBoundingBox(
-            southWest: YMKPoint(latitude: 41.1882, longitude: 69.1150),
-            northEast: YMKPoint(latitude: 41.4000, longitude: 69.4000)
-        )
-        
-        searchSession = searchManager.submit(
-            withText: query,
-            geometry: YMKGeometry(boundingBox: tashkentBoundingBox),
-            searchOptions: searchOptions,
-            responseHandler: { [weak self] response, error in
-                guard let self = self else { return }
-                
-                if let response = response {
-                    self.results = response.collection.children.compactMap { geoObject in
-                        guard let point = geoObject.obj?.geometry.first?.point else { return nil }
-                        
-                        let distance = DistanceCalculator.calculateDistance(to: point)
-                        
-                        return SearchResult(
-                            name: geoObject.obj?.name ?? "Noma'lum joy",
-                            address: geoObject.obj?.descriptionText ?? "Manzil mavjud emas",
-                            latitude: point.latitude,
-                            longitude: point.longitude,
-                            distance: distance
-                        )
-                    }
-                    DispatchQueue.main.async {
-                        self.onResultsUpdated?()
-                    }
-                } else {
-                    print("Search error: \(error?.localizedDescription ?? "Unknown error")")
-                }
+        LocationSearchManager.shared.searchByText(query) { [weak self] results in
+            guard let self = self else { return }
+            self.results = results
+            DispatchQueue.main.async {
+                self.onResultsUpdated?()
             }
-        )
+        }
     }
   
     func presentSearchResultDetail(searchResult: SearchResult) {
         coordinator?.presentSearchResultDetail(searchResult: searchResult)
     }
-    
     
     func saveLocation(_ searchResult: SearchResult) {
         SearchLocationManager.shared.saveLocation(data: searchResult)
@@ -103,19 +68,5 @@ class SearchResultsViewModel {
                 self?.saveSearchLocations.remove(at: index)
             }
         }
-    }
-}
-
-
-// Utility class for distance calculation
-struct DistanceCalculator {
-    static func calculateDistance(to point: YMKPoint) -> String {
-        let tashkentLocation = CLLocation(latitude: 41.364521, longitude: 69.281377)
-        let resultLocation = CLLocation(latitude: point.latitude, longitude: point.longitude)
-        let distanceInMeters = tashkentLocation.distance(from: resultLocation)
-        
-        return distanceInMeters < 1000 ?
-        String(format: "%.0f m", distanceInMeters) :
-        String(format: "%.1f km", distanceInMeters / 1000)
     }
 }

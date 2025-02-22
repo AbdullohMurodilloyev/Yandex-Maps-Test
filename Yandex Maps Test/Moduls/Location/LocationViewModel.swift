@@ -11,11 +11,10 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     
     // MARK: - Properties
     private weak var coordinator: LocationCoordinator?
-    var searchResult: SearchResult?
-    private var searchSession: YMKSearchSession?
     private var selectedPlacemark: YMKPlacemarkMapObject?
-    var onDrag: ((YMKPoint) -> Void)?
+    private(set) var searchResult: SearchResult?
     
+    var onDrag: ((YMKPoint) -> Void)?
     
     // MARK: - Init
     init(coordinator: LocationCoordinator?, searchResult: SearchResult? = nil) {
@@ -65,29 +64,26 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
         selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
         selectedPlacemark?.isDraggable = true
         
-        fetchPlaceName(for: point) { [weak self] name, address in
-            guard let self = self else { return }
+        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
+            guard let self = self, let result = result else { return }
             
-            let result = SearchResult(name: name, address: address, latitude: point.latitude, longitude: point.longitude, distance: "")
-            
-            self.searchResult = result
             self.selectedPlacemark?.userData = result
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                self?.presentSearchResultDetail(searchResult: result)
+                guard let self = self else { return }
+                self.presentSearchResultDetail(searchResult: result)
             }
+
         }
         
         selectedPlacemark?.addTapListener(with: self)
         selectedPlacemark?.setDragListenerWith(self)
     }
     
-    
     // MARK: - Map Object Delegate Methods
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
         guard let placemark = mapObject as? YMKPlacemarkMapObject,
               let searchResult = placemark.userData as? SearchResult else { return false }
-        
         presentSearchResultDetail(searchResult: searchResult)
         return true
     }
@@ -100,34 +96,15 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     
     func onMapObjectDragEnd(with mapObject: YMKMapObject) {
         guard let placemark = mapObject as? YMKPlacemarkMapObject else { return }
-        let newPoint = placemark.geometry
+        let point = placemark.geometry
         
-        fetchPlaceName(for: newPoint) { [weak self] name, address in
-            guard let self = self else { return }
+        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
+            guard let self = self, let result = result else { return }
             
-            let result = SearchResult(name: name, address: address, latitude: newPoint.latitude, longitude: newPoint.longitude, distance: "")
-            
-            self.searchResult = result
             self.selectedPlacemark?.userData = result
             
-            // UI yangilanishi uchun chaqiriladi
-            self.presentSearchResultDetail(searchResult: result)
-        }
-    }
-    
-    // MARK: - Search Methods
-    private func fetchPlaceName(for point: YMKPoint, completion: @escaping (String, String) -> Void) {
-        let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
-        let searchOptions = YMKSearchOptions()
-        searchOptions.resultPageSize = 1
-        
-        searchSession = searchManager.submit(with: point, zoom: 18, searchOptions: searchOptions) { response, error in
-            if let response = response, let firstResult = response.collection.children.first?.obj {
-                let name = firstResult.name ?? "Noma'lum joy"
-                let address = firstResult.descriptionText ?? "Manzil mavjud emas"
-                completion(name, address)
-            } else {
-                completion("Noma'lum joy", "Manzil mavjud emas")
+            DispatchQueue.main.async {
+                self.presentSearchResultDetail(searchResult: result)
             }
         }
     }
