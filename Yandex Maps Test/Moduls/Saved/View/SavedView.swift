@@ -22,8 +22,6 @@ class SavedView: UIView {
         return table
     }()
     
-    var onDeleteLocation: ((Int) -> Void)?
-    
     var results: [SearchResult] = [] {
         didSet {
             tableView.reloadData()
