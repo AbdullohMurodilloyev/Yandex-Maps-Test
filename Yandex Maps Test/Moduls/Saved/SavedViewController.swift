@@ -23,15 +23,14 @@ class SavedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupBindings()
+        setupUI()
+        bindViewModel()
         viewModel.fetchSavedLocations()
     }
     
-    private func setupView() {
+    private func setupUI() {
         view.addSubview(savedView)
         savedView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             savedView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             savedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -39,23 +38,31 @@ class SavedViewController: UIViewController {
             savedView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        savedView.onDeleteLocation = { [weak self] index in
-            self?.deleteLocation(at: index)
-        }
+        savedView.delegate = self
     }
     
-    private func setupBindings() {
+    private func bindViewModel() {
         viewModel.onSavedLocationsUpdated = { [weak self] locations in
             self?.savedView.results = locations.map {
-                SearchResult(name: $0.name ?? "",
-                             address: $0.address ?? "",
-                             latitude: $0.latitude,
-                             longitude: $0.longitude,
-                             distance: "") }
+                SearchResult(
+                    name: $0.name ?? "",
+                    address: $0.address ?? "",
+                    latitude: $0.latitude,
+                    longitude: $0.longitude,
+                    distance: ""
+                )
+            }
         }
     }
+}
+
+// MARK: - SavedViewDelegate
+extension SavedViewController: SavedViewDelegate {
+    func didTapCell(result: SearchResult) {
+        print(result)
+    }
     
-    private func deleteLocation(at index: Int) {
+    func didDeleteLocation(at index: Int) {
         viewModel.deleteLocation(at: index)
     }
 }

@@ -7,9 +7,16 @@
 
 import UIKit
 
-class SavedView: UIView {
+protocol SavedViewDelegate: AnyObject {
+    func didTapCell(result: SearchResult)
+    func didDeleteLocation(at index: Int)
+}
+
+final class SavedView: UIView {
     
-    lazy var tableView: UITableView = {
+    weak var delegate: SavedViewDelegate?
+    
+    private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(cellClass: SavedTableVIewCell.self)
@@ -23,12 +30,9 @@ class SavedView: UIView {
     }()
     
     var results: [SearchResult] = [] {
-        didSet {
-            tableView.reloadData()
-        }
+        didSet { tableView.reloadData() }
     }
     
-    // MARK: Override Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -52,10 +56,12 @@ class SavedView: UIView {
         ])
     }
 }
+
 // MARK: - UITableView DataSource & Delegate
-extension SavedView: UITableViewDelegate, UITableViewDataSource {
+extension SavedView: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
+        results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,13 +70,18 @@ extension SavedView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.didTapCell(result: results[indexPath.row])
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            onDeleteLocation?(indexPath.row)
+            delegate?.didDeleteLocation(at: indexPath.row)
         }
     }
 }

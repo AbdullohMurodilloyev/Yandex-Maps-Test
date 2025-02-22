@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import YandexMapsMobile
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
     func didSelectSearchResult(_ result: SearchResult)
@@ -31,7 +30,8 @@ class SearchResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupBindings()
+        bindViewModel()
+        viewModel.fetchSavedLocations()
     }
     
     private func setupView() {
@@ -46,29 +46,40 @@ class SearchResultsViewController: UIViewController {
             searchResultsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchResultsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        searchResultsView.searchView.textField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
     }
     
-    private func setupBindings() {
+    private func bindViewModel() {
         viewModel.onResultsUpdated = { [weak self] in
             self?.searchResultsView.results = self?.viewModel.results ?? []
         }
-    }
-
-    @objc private func searchTextChanged() {
-        if let query = searchResultsView.searchView.textField.text {
-            viewModel.performSearch(query: query)
+        
+        viewModel.onSavedLocationsUpdated = { [weak self] locations in
+            self?.searchResultsView.results = locations.map {
+                SearchResult(name: $0.name ?? "",
+                             address: $0.address ?? "",
+                             latitude: $0.latitude,
+                             longitude: $0.longitude,
+                             distance: $0.distance ?? "")
+            }
         }
     }
 }
 
 extension SearchResultsViewController: SearchResultsViewDelegate {
-    func tappedCell(result: SearchResult) {
+    func didTapCell(result: SearchResult) {
         delegate?.didSelectSearchResult(result)
         dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.presentSearchResultDetail(searchResult: result)
+            self?.viewModel.saveLocation(result)
+            self?.viewModel.presentSearchResultDetail(searchResult: result)
         }
+    }
+    
+    func didRequestDeleteLocation(at index: Int) {
+        viewModel.deleteLocation(at: index)
+    }
+    
+    func didChangeSearchQuery(_ query: String) {
+        searchResultsView.isSearching = !query.isEmpty
+        query.isEmpty ? viewModel.fetchSavedLocations() : viewModel.performSearch(query: query)
     }
 }
