@@ -22,9 +22,9 @@
 		DB21E4162D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4132D67917E003CEAC1 /* SavedLocation+CoreDataClass.swift */; };
 		DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */; };
 		DB21E41A2D6793C8003CEAC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */; };
+		DB3E61C52D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E61C32D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataClass.swift */; };
+		DB3E61C62D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E61C42D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataProperties.swift */; };
 		DBA49A972D69CE9900C5744A /* SearchLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */; };
-		DBA49A9A2D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */; };
-		DBA49A9B2D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */; };
 		DBA49A9D2D69FB4600C5744A /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */; };
 		DBA49A9F2D6A4D9C00C5744A /* LocationSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49A9E2D6A4D9B00C5744A /* LocationSearchManager.swift */; };
 		DBA49AA12D6A4DC300C5744A /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA49AA02D6A4DC200C5744A /* DistanceCalculator.swift */; };
@@ -68,10 +68,10 @@
 		DB21E4142D67917E003CEAC1 /* SavedLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DB21E4172D6791FF003CEAC1 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
 		DB21E4192D6793C7003CEAC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		DB3E61C32D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DB3E61C42D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DB862CC82D66256900B4FA50 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationManager.swift; sourceTree = "<group>"; };
-		DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SaveSearchLocation+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		DBA49A9C2D69FB4400C5744A /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		DBA49A9E2D6A4D9B00C5744A /* LocationSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchManager.swift; sourceTree = "<group>"; };
 		DBA49AA02D6A4DC200C5744A /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
@@ -193,8 +193,8 @@
 		DBA49A952D69CE7100C5744A /* SavedSearch */ = {
 			isa = PBXGroup;
 			children = (
-				DBA49A982D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift */,
-				DBA49A992D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift */,
+				DB3E61C32D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataClass.swift */,
+				DB3E61C42D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataProperties.swift */,
 				DBA49A962D69CE9000C5744A /* SearchLocationManager.swift */,
 			);
 			path = SavedSearch;
@@ -442,8 +442,6 @@
 				DBA49A9F2D6A4D9C00C5744A /* LocationSearchManager.swift in Sources */,
 				DB1F39D12D6668B700296B91 /* SearchResultDetailViewModel.swift in Sources */,
 				DBAD4C4C2D6692B400E1BE60 /* CustomCenteredAlertViewModel.swift in Sources */,
-				DBA49A9A2D69D44000C5744A /* SaveSearchLocation+CoreDataProperties.swift in Sources */,
-				DBA49A9B2D69D44000C5744A /* SaveSearchLocation+CoreDataClass.swift in Sources */,
 				DB1F39CF2D6668A600296B91 /* SearchResultDetailViewController.swift in Sources */,
 				DBF865572D65FB810098BF48 /* SavedViewController.swift in Sources */,
 				DB21E4182D679207003CEAC1 /* DataBaseHelper.swift in Sources */,
@@ -455,6 +453,8 @@
 				DBF865702D6605290098BF48 /* Ex-Reusable.swift in Sources */,
 				DBF8655C2D65FC610098BF48 /* Coordinator.swift in Sources */,
 				DB21E41A2D6793C8003CEAC1 /* CoreDataManager.swift in Sources */,
+				DB3E61C52D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataClass.swift in Sources */,
+				DB3E61C62D6A5C7B00D89BEE /* SaveSearchLocation+CoreDataProperties.swift in Sources */,
 				DBF8655E2D65FC780098BF48 /* SavedCoordinator.swift in Sources */,
 				DBF865602D65FC9F0098BF48 /* LocationCoordinator.swift in Sources */,
 				DBF8656C2D6604C40098BF48 /* Ex-CALayer.swift in Sources */,
