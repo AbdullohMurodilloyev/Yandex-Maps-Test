@@ -38,8 +38,8 @@ class LocationSearchManager {
             let result = SearchResult(
                 name: firstResult.name ?? "Noma'lum joy",
                 address: firstResult.descriptionText ?? "Manzil mavjud emas",
-                latitude: point.latitude,
-                longitude: point.longitude,
+                latitude: resultPoint.latitude,
+                longitude: resultPoint.longitude,
                 distance: DistanceCalculator.calculateDistance(to: point)
             )
 

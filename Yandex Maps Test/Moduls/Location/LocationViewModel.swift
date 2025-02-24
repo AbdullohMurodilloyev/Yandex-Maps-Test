@@ -34,6 +34,7 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     // MARK: - Map Interaction Methods
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
+        updatePlacemark(at: initialPoint, on: mapView, shouldPresentDetail: false)
         moveMap(to: initialPoint, zoom: 11, on: mapView)
     }
     
@@ -56,7 +57,7 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
                                    cameraCallback: nil)
     }
     
-    private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView) {
+    private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView, shouldPresentDetail: Bool = true) {
         let mapObjects = mapView.mapWindow.map.mapObjects
         selectedPlacemark?.parent.remove(with: selectedPlacemark!)
         
@@ -64,14 +65,15 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
         selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
         selectedPlacemark?.isDraggable = true
         
-        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
-            guard let self = self, let result = result else { return }
-            
-            self.selectedPlacemark?.userData = result
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                guard let self = self else { return }
-                self.presentSearchResultDetail(searchResult: result)
+        if shouldPresentDetail {
+            LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
+                guard let self = self, let result = result else { return }
+                self.selectedPlacemark?.userData = result
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    guard let self = self else { return }
+                    self.presentSearchResultDetail(searchResult: result)
+                }
             }
 
         }
