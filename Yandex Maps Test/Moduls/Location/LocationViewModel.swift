@@ -53,7 +53,7 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
         let cameraPosition = YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 30.0)
         mapView.mapWindow.map.move(with: cameraPosition,
-                                   animationType: YMKAnimation(type: .smooth, duration: 1),
+                                   animation: YMKAnimation(type: .smooth, duration: 1),
                                    cameraCallback: nil)
     }
     
