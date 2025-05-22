@@ -113,7 +113,6 @@ class LocationViewController: UIViewController {
             latitude: searchResult.latitude,
             longitude: searchResult.longitude,
             on: mapView,
-            performSearch: true
         )
     }
     
@@ -134,7 +133,6 @@ extension LocationViewController: SearchResultsViewControllerDelegate {
             latitude: result.latitude,
             longitude: result.longitude,
             on: mapView,
-            performSearch: true
         )
     }
 }

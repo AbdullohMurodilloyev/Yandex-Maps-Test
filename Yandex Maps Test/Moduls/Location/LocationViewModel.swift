@@ -44,24 +44,26 @@ class LocationViewModel: NSObject, YMKMapCameraListener {
     
     func moveToUserLocation(on mapView: YMKMapView, performSearch: Bool = false) {
         let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401)
-        moveMap(to: userLocation, zoom: 17, on: mapView)
         
-        if performSearch {
-            self.performSearch(at: userLocation)
+        moveMap(to: userLocation, zoom: 17, on: mapView) { [weak self] in
+            if performSearch {
+                self?.performSearch(at: userLocation)
+            }
         }
     }
     
-    func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView, performSearch: Bool = false) {
+    func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView) {
         let locationPoint = YMKPoint(latitude: latitude, longitude: longitude)
-        moveMap(to: locationPoint, zoom: 17, on: mapView)
-
-        if performSearch {
-            self.performSearch(at: locationPoint)
+        
+        moveMap(to: locationPoint, zoom: 17, on: mapView) { [weak self] in
+            self?.performSearch(at: locationPoint)
+            
         }
     }
+    
     
     // MARK: - Private Methods
-    private func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
+    private func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView, completion: (() -> Void)? = nil) {
         let cameraPosition = YMKCameraPosition(
             target: point,
             zoom: zoom,
@@ -72,15 +74,18 @@ class LocationViewModel: NSObject, YMKMapCameraListener {
         mapView.mapWindow.map.move(
             with: cameraPosition,
             animation: YMKAnimation(type: .smooth, duration: 1),
-            cameraCallback: nil
+            cameraCallback: { _ in
+                completion?()
+            }
         )
     }
+    
     
     private func performSearch(at point: YMKPoint) {
         LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
             guard let self = self, let result = result else { return }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.presentSearchResultDetail(searchResult: result)
             }
         }

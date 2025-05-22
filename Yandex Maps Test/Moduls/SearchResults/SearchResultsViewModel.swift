@@ -37,10 +37,6 @@ class SearchResultsViewModel {
             }
         }
     }
-  
-    func presentSearchResultDetail(searchResult: SearchResult) {
-        coordinator?.presentSearchResultDetail(searchResult: searchResult)
-    }
     
     func saveLocation(_ searchResult: SearchResult) {
         SearchLocationManager.shared.saveLocation(data: searchResult)

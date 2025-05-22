@@ -70,7 +70,6 @@ extension SearchResultsViewController: SearchResultsViewDelegate {
         delegate?.didSelectSearchResult(result)
         dismiss(animated: true) { [weak self] in
             self?.viewModel.saveLocation(result)
-            self?.viewModel.presentSearchResultDetail(searchResult: result)
         }
     }
     
