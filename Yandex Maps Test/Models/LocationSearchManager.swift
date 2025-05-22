@@ -10,7 +10,7 @@ import YandexMapsMobile
 class LocationSearchManager {
     static let shared = LocationSearchManager()
     private var searchSession: YMKSearchSession?
-    private let searchManager = YMKSearch.sharedInstance().createSearchManager(with: .combined)
+    private let searchManager = YMKSearchFactory.instance().createSearchManager(with: .combined)
 
     // MARK: - Search by Point
     func searchByPoint(_ point: YMKPoint, completion: @escaping (SearchResult?) -> Void) {
@@ -50,16 +50,15 @@ class LocationSearchManager {
     // MARK: - Search by Text
     func searchByText(_ query: String, completion: @escaping ([SearchResult]) -> Void) {
         let searchOptions = YMKSearchOptions()
-        searchOptions.resultPageSize = 10
 
-        let tashkentBoundingBox = YMKBoundingBox(
-            southWest: YMKPoint(latitude: 41.1882, longitude: 69.1150),
-            northEast: YMKPoint(latitude: 41.4000, longitude: 69.4000)
-        )
+        let boundingBox = YMKBoundingBox(
+               southWest: YMKPoint(latitude: 41.0, longitude: 68.5),
+               northEast: YMKPoint(latitude: 41.5, longitude: 69.5)
+           )
 
         searchSession = searchManager.submit(
             withText: query,
-            geometry: YMKGeometry(boundingBox: tashkentBoundingBox),
+            geometry: YMKGeometry(boundingBox: boundingBox),
             searchOptions: searchOptions
         ) { response, error in
             if let error = error {

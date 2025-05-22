@@ -8,13 +8,22 @@
 import UIKit
 import YandexMapsMobile
 
-class LocationViewController: UIViewController {
+class LocationViewController: UIViewController, YMKMapCameraListener {
     
     // MARK: - Properties
     private let viewModel: LocationViewModel
     private let mapView = YMKMapView()
     private let searchView = SearchView()
     private let locationButton = UIButton()
+    
+    private let centerPin: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "pin"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        return imageView
+    }()
     
     // MARK: - Init
     init(viewModel: LocationViewModel) {
@@ -33,21 +42,42 @@ class LocationViewController: UIViewController {
         setupMap()
         bindViewModel()
         
+        mapView.mapWindow.map.addCameraListener(with: self)
+    
     }
     
     private func bindViewModel() {
-        viewModel.onDrag = { [weak self] point in
-            self?.moveCamera(to: point)
-        }
+//        viewModel.onDrag = { [weak self] point in
+//            self?.moveCamera(to: point)
+//        }
+        
         if let searchResult = viewModel.searchResult {
             viewModel.moveToLocation(latitude: searchResult.latitude,
-                                     longitude: searchResult.longitude, on: mapView)
+                                     longitude: searchResult.longitude,
+                                     on: mapView)
         }
     }
     
-    private func moveCamera(to point: YMKPoint) {
-        viewModel.moveMap(to: point, zoom: 15, on: mapView)
+    @objc func currentLocationTapped() {
+        viewModel.moveToUserLocation(on: mapView)
     }
+    
+    @objc func showSearch() {
+        viewModel.pushToSearchResults(delegate: self)
+    }
+    
+    
+    func onCameraPositionChanged(
+        with map: YMKMap,
+        cameraPosition: YMKCameraPosition,
+        cameraUpdateReason: YMKCameraUpdateReason,
+        finished: Bool
+    ) {
+        let center = cameraPosition.target
+        print("Camera moved to: latitude = \(center.latitude), longitude = \(center.longitude)")
+        
+    }
+
 }
 
 // MARK: - UI Setup
@@ -59,6 +89,7 @@ private extension LocationViewController {
         view.addSubview(mapView)
         view.addSubview(searchView)
         view.addSubview(locationButton)
+        view.addSubview(centerPin)
         
         setupSearchView()
         setupLocationButton()
@@ -96,7 +127,10 @@ private extension LocationViewController {
             locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             locationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
             locationButton.widthAnchor.constraint(equalToConstant: 64),
-            locationButton.heightAnchor.constraint(equalToConstant: 64)
+            locationButton.heightAnchor.constraint(equalToConstant: 64),
+            
+            centerPin.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            centerPin.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20)
         ])
     }
 }
@@ -105,17 +139,6 @@ private extension LocationViewController {
 private extension LocationViewController {
     func setupMap() {
         viewModel.moveToInitialLocation(on: mapView)
-    }
-}
-
-// MARK: - Actions
-private extension LocationViewController {
-    @objc func currentLocationTapped() {
-        viewModel.moveToUserLocation(on: mapView)
-    }
-    
-    @objc func showSearch() {
-        viewModel.pushToSearchResults(delegate: self)
     }
 }
 

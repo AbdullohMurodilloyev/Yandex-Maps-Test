@@ -7,14 +7,13 @@
 
 import YandexMapsMobile
 
-class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragListener {
+class LocationViewModel: NSObject, YMKMapObjectTapListener {
     
     // MARK: - Properties
     private weak var coordinator: LocationCoordinator?
     private var selectedPlacemark: YMKPlacemarkMapObject?
     private(set) var searchResult: SearchResult?
     
-    var onDrag: ((YMKPoint) -> Void)?
     
     // MARK: - Init
     init(coordinator: LocationCoordinator?, searchResult: SearchResult? = nil) {
@@ -34,20 +33,18 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     // MARK: - Map Interaction Methods
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
-        updatePlacemark(at: initialPoint, on: mapView, shouldPresentDetail: false)
-        moveMap(to: initialPoint, zoom: 11, on: mapView)
+        moveMap(to: initialPoint, zoom: 13, on: mapView)
     }
     
     func moveToUserLocation(on mapView: YMKMapView) {
         let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401)
         updatePlacemark(at: userLocation, on: mapView)
-        moveMap(to: userLocation, zoom: 15, on: mapView)
+        moveMap(to: userLocation, zoom: 17, on: mapView)
     }
     
     func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView) {
         let locationPoint = YMKPoint(latitude: latitude, longitude: longitude)
-        updatePlacemark(at: locationPoint, on: mapView)
-        moveMap(to: locationPoint, zoom: 15, on: mapView)
+        moveMap(to: locationPoint, zoom: 17, on: mapView)
     }
     
     func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
@@ -58,18 +55,9 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
     }
     
     private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView, shouldPresentDetail: Bool = true) {
-        let mapObjects = mapView.mapWindow.map.mapObjects
-        selectedPlacemark?.parent.remove(with: selectedPlacemark!)
-        
-        selectedPlacemark = mapObjects.addPlacemark(with: point)
-        selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
-        selectedPlacemark?.isDraggable = true
-        
         if shouldPresentDetail {
             LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
                 guard let self = self, let result = result else { return }
-                self.selectedPlacemark?.userData = result
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.presentSearchResultDetail(searchResult: result)
@@ -77,9 +65,8 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
             }
 
         }
-        
         selectedPlacemark?.addTapListener(with: self)
-        selectedPlacemark?.setDragListenerWith(self)
+       // mapView.mapWindow.map.addCameraListener(with: self)
     }
     
     // MARK: - Map Object Delegate Methods
@@ -89,25 +76,5 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
         presentSearchResultDetail(searchResult: searchResult)
         return true
     }
-    
-    func onMapObjectDragStart(with mapObject: YMKMapObject) {}
-    
-    func onMapObjectDrag(with mapObject: YMKMapObject, point: YMKPoint) {
-        onDrag?(point)
-    }
-    
-    func onMapObjectDragEnd(with mapObject: YMKMapObject) {
-        guard let placemark = mapObject as? YMKPlacemarkMapObject else { return }
-        let point = placemark.geometry
-        
-        LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
-            guard let self = self, let result = result else { return }
-            
-            self.selectedPlacemark?.userData = result
-            
-            DispatchQueue.main.async {
-                self.presentSearchResultDetail(searchResult: result)
-            }
-        }
-    }
+
 }
