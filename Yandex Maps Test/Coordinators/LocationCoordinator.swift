@@ -7,21 +7,21 @@
 
 import UIKit
 
-final class LocationCoordinator: Coordinator {
+final class LocationCoordinator: BaseCoordinator {
     
-    internal var navigationController: UINavigationController
     weak var parentCoordinator: TabbarCoordinator?
     
-    init(navigationController: UINavigationController, parentCoordinator: TabbarCoordinator?) {
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
+    private var initialSearchResult: SearchResult?
+    
+    override func start() {
+        start(searchResult: initialSearchResult)
     }
     
     func start(searchResult: SearchResult? = nil) {
         let vm = LocationViewModel(coordinator: self, searchResult: searchResult)
         let vc = LocationViewController(viewModel: vm)
         vc.tabBarItem.image = UIImage(named: "location")
-        navigationController.viewControllers = [vc]
+        navigationController?.viewControllers = [vc]
     }
     
     func pushToSearchResults(delegate: SearchResultsViewControllerDelegate) {
@@ -32,19 +32,17 @@ final class LocationCoordinator: Coordinator {
             sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
         }
-        navigationController.topViewController?.present(vc, animated: true)
+        navigationController?.topViewController?.present(vc, animated: true)
     }
     
     func presentSearchResultDetail(searchResult: SearchResult) {
         let vm = SearchResultDetailViewModel(coordinator: self)
         let vc = SearchResultDetailViewController(viewModel: vm, searchResult: searchResult)
         if let sheet = vc.sheetPresentationController {
-            sheet.detents = [.custom { _ in
-                return 170
-            }]
+            sheet.detents = [.custom { _ in 170 }]
             sheet.prefersGrabberVisible = true
         }
-        navigationController.topViewController?.present(vc, animated: true)
+        navigationController?.topViewController?.present(vc, animated: true)
     }
     
     func presentAlert(searchResult: SearchResult) {
@@ -52,7 +50,7 @@ final class LocationCoordinator: Coordinator {
         let vc = CustomCenteredAlertViewController(viewModel: vm, searchResult: searchResult)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
-        navigationController.topViewController?.present(vc, animated: true)
+        navigationController?.topViewController?.present(vc, animated: true)
     }
     
     func goToLocationScreen() {
