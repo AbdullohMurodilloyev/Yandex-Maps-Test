@@ -7,22 +7,16 @@
 
 import UIKit
 
-final class SavedCoordinator: Coordinator {
+final class SavedCoordinator: BaseCoordinator {
     
-    var navigationController: UINavigationController
-    weak var parentCoordinator: TabbarCoordinator?  
+    weak var parentCoordinator: TabbarCoordinator?
     
-    init(navigationController: UINavigationController, parentCoordinator: TabbarCoordinator?) {
-        self.navigationController = navigationController
-        self.parentCoordinator = parentCoordinator
-    }
-    
-    func start() {
+    override func start() {
         let vm = SavedViewModel(coordinator: self)
         let vc = SavedViewController(viewModel: vm)
         vc.tabBarItem.image = UIImage(named: "bookMark")
         vc.navigationItem.title = "Мои адреса"
-        navigationController.viewControllers = [vc]
+        navigationController?.viewControllers = [vc]
     }
     
     func goToLocationScreen(data: SearchResult) {

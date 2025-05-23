@@ -16,6 +16,13 @@ class LocationViewController: UIViewController {
     private let searchView = SearchView()
     private let locationButton = UIButton()
     
+    private let centerPin: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "pin"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     // MARK: - Init
     init(viewModel: LocationViewModel) {
         self.viewModel = viewModel
@@ -29,92 +36,92 @@ class LocationViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        setupUI()
         setupMap()
-        bindViewModel()
-        
+        handleInitialSearchResult()
     }
     
-    private func bindViewModel() {
-        viewModel.onDrag = { [weak self] point in
-            self?.moveCamera(to: point)
-        }
-        if let searchResult = viewModel.searchResult {
-            viewModel.moveToLocation(latitude: searchResult.latitude,
-                                     longitude: searchResult.longitude, on: mapView)
-        }
-    }
-    
-    private func moveCamera(to point: YMKPoint) {
-        viewModel.moveMap(to: point, zoom: 15, on: mapView)
-    }
-}
-
-// MARK: - UI Setup
-private extension LocationViewController {
-    func setupView() {
+    // MARK: - Setup Methods
+    private func setupUI() {
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        view.addSubview(mapView)
-        view.addSubview(searchView)
-        view.addSubview(locationButton)
-        
+        addSubviews()
         setupSearchView()
         setupLocationButton()
         setupConstraints()
     }
     
-    func setupSearchView() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSearch))
+    private func addSubviews() {
+        [mapView, searchView, locationButton, centerPin].forEach {
+            view.addSubview($0)
+        }
+    }
+    
+    private func setupSearchView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showSearchTapped))
         searchView.addGestureRecognizer(tapGesture)
         searchView.setTextFieldInteraction(enabled: false)
     }
     
-    func setupLocationButton() {
+    private func setupLocationButton() {
         locationButton.setImage(UIImage(named: "currentLocation"), for: .normal)
         locationButton.adjustsImageWhenHighlighted = false
         locationButton.addTarget(self, action: #selector(currentLocationTapped), for: .touchUpInside)
     }
     
-    func setupConstraints() {
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        searchView.translatesAutoresizingMaskIntoConstraints = false
-        locationButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setupConstraints() {
+        [mapView, searchView, locationButton, centerPin].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
+            // MapView
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
+            // SearchView
             searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             searchView.heightAnchor.constraint(equalToConstant: 64),
             
+            // LocationButton
             locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             locationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
             locationButton.widthAnchor.constraint(equalToConstant: 64),
-            locationButton.heightAnchor.constraint(equalToConstant: 64)
+            locationButton.heightAnchor.constraint(equalToConstant: 64),
+            
+            // CenterPin
+            centerPin.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            centerPin.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            centerPin.widthAnchor.constraint(equalToConstant: 60),
+            centerPin.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
-}
-
-// MARK: - Map Setup
-private extension LocationViewController {
-    func setupMap() {
+    
+    private func setupMap() {
+        mapView.mapWindow.map.addCameraListener(with: viewModel)
         viewModel.moveToInitialLocation(on: mapView)
     }
-}
-
-// MARK: - Actions
-private extension LocationViewController {
-    @objc func currentLocationTapped() {
-        viewModel.moveToUserLocation(on: mapView)
+    
+    private func handleInitialSearchResult() {
+        guard let searchResult = viewModel.searchResult else { return }
+        viewModel.moveToLocation(
+            latitude: searchResult.latitude,
+            longitude: searchResult.longitude,
+            on: mapView,
+        )
     }
     
-    @objc func showSearch() {
+    // MARK: - Actions
+    @objc private func currentLocationTapped() {
+        viewModel.moveToUserLocation(on: mapView, performSearch: true)
+    }
+    
+    @objc private func showSearchTapped() {
         viewModel.pushToSearchResults(delegate: self)
     }
 }
@@ -122,6 +129,10 @@ private extension LocationViewController {
 // MARK: - SearchResultsViewControllerDelegate
 extension LocationViewController: SearchResultsViewControllerDelegate {
     func didSelectSearchResult(_ result: SearchResult) {
-        viewModel.moveToLocation(latitude: result.latitude, longitude: result.longitude, on: mapView)
+        viewModel.moveToLocation(
+            latitude: result.latitude,
+            longitude: result.longitude,
+            on: mapView,
+        )
     }
 }

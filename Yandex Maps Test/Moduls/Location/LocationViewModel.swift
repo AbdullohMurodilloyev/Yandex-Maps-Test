@@ -7,19 +7,24 @@
 
 import YandexMapsMobile
 
-class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragListener {
+class LocationViewModel: NSObject, YMKMapCameraListener {
     
     // MARK: - Properties
     private weak var coordinator: LocationCoordinator?
-    private var selectedPlacemark: YMKPlacemarkMapObject?
     private(set) var searchResult: SearchResult?
     
-    var onDrag: ((YMKPoint) -> Void)?
+    // Debounce properties
+    private var debounceTimer: Timer?
+    private let debounceDelay: TimeInterval = 1.0
+    
+    // User interaction tracking
+    private var hasUserInteracted: Bool = false
     
     // MARK: - Init
     init(coordinator: LocationCoordinator?, searchResult: SearchResult? = nil) {
         self.coordinator = coordinator
         self.searchResult = searchResult
+        super.init()
     }
     
     // MARK: - Navigation Methods
@@ -31,83 +36,87 @@ class LocationViewModel: NSObject, YMKMapObjectTapListener, YMKMapObjectDragList
         coordinator?.presentSearchResultDetail(searchResult: searchResult)
     }
     
-    // MARK: - Map Interaction Methods
+    // MARK: - Map Navigation Methods
     func moveToInitialLocation(on mapView: YMKMapView) {
         let initialPoint = YMKPoint(latitude: 41.2995, longitude: 69.2401)
-        updatePlacemark(at: initialPoint, on: mapView, shouldPresentDetail: false)
-        moveMap(to: initialPoint, zoom: 11, on: mapView)
+        moveMap(to: initialPoint, zoom: 13, on: mapView)
     }
     
-    func moveToUserLocation(on mapView: YMKMapView) {
+    func moveToUserLocation(on mapView: YMKMapView, performSearch: Bool = false) {
         let userLocation = YMKPoint(latitude: 41.2995, longitude: 69.2401)
-        updatePlacemark(at: userLocation, on: mapView)
-        moveMap(to: userLocation, zoom: 15, on: mapView)
+        
+        moveMap(to: userLocation, zoom: 17, on: mapView) { [weak self] in
+            if performSearch {
+                self?.performSearch(at: userLocation)
+            }
+        }
     }
     
     func moveToLocation(latitude: Double, longitude: Double, on mapView: YMKMapView) {
         let locationPoint = YMKPoint(latitude: latitude, longitude: longitude)
-        updatePlacemark(at: locationPoint, on: mapView)
-        moveMap(to: locationPoint, zoom: 15, on: mapView)
-    }
-    
-    func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView) {
-        let cameraPosition = YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 30.0)
-        mapView.mapWindow.map.move(with: cameraPosition,
-                                   animation: YMKAnimation(type: .smooth, duration: 1),
-                                   cameraCallback: nil)
-    }
-    
-    private func updatePlacemark(at point: YMKPoint, on mapView: YMKMapView, shouldPresentDetail: Bool = true) {
-        let mapObjects = mapView.mapWindow.map.mapObjects
-        selectedPlacemark?.parent.remove(with: selectedPlacemark!)
         
-        selectedPlacemark = mapObjects.addPlacemark(with: point)
-        selectedPlacemark?.setIconWith(UIImage(named: "pin") ?? UIImage())
-        selectedPlacemark?.isDraggable = true
-        
-        if shouldPresentDetail {
-            LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
-                guard let self = self, let result = result else { return }
-                self.selectedPlacemark?.userData = result
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                    guard let self = self else { return }
-                    self.presentSearchResultDetail(searchResult: result)
-                }
-            }
-
+        moveMap(to: locationPoint, zoom: 17, on: mapView) { [weak self] in
+            self?.performSearch(at: locationPoint)
+            
         }
+    }
+    
+    
+    // MARK: - Private Methods
+    private func moveMap(to point: YMKPoint, zoom: Float, on mapView: YMKMapView, completion: (() -> Void)? = nil) {
+        let cameraPosition = YMKCameraPosition(
+            target: point,
+            zoom: zoom,
+            azimuth: 0,
+            tilt: 30.0
+        )
         
-        selectedPlacemark?.addTapListener(with: self)
-        selectedPlacemark?.setDragListenerWith(self)
+        mapView.mapWindow.map.move(
+            with: cameraPosition,
+            animation: YMKAnimation(type: .smooth, duration: 1),
+            cameraCallback: { _ in
+                completion?()
+            }
+        )
     }
     
-    // MARK: - Map Object Delegate Methods
-    func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
-        guard let placemark = mapObject as? YMKPlacemarkMapObject,
-              let searchResult = placemark.userData as? SearchResult else { return false }
-        presentSearchResultDetail(searchResult: searchResult)
-        return true
-    }
     
-    func onMapObjectDragStart(with mapObject: YMKMapObject) {}
-    
-    func onMapObjectDrag(with mapObject: YMKMapObject, point: YMKPoint) {
-        onDrag?(point)
-    }
-    
-    func onMapObjectDragEnd(with mapObject: YMKMapObject) {
-        guard let placemark = mapObject as? YMKPlacemarkMapObject else { return }
-        let point = placemark.geometry
-        
+    private func performSearch(at point: YMKPoint) {
         LocationSearchManager.shared.searchByPoint(point) { [weak self] result in
             guard let self = self, let result = result else { return }
             
-            self.selectedPlacemark?.userData = result
-            
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.presentSearchResultDetail(searchResult: result)
             }
         }
+    }
+    
+    // MARK: - YMKMapCameraListener
+    func onCameraPositionChanged(
+        with map: YMKMap,
+        cameraPosition: YMKCameraPosition,
+        cameraUpdateReason: YMKCameraUpdateReason,
+        finished: Bool
+    ) {
+        // Mark user interaction
+        if cameraUpdateReason == .gestures {
+            hasUserInteracted = true
+        }
+        
+        // Only proceed if user has interacted
+        guard hasUserInteracted else { return }
+        
+        // Cancel previous timer
+        debounceTimer?.invalidate()
+        
+        // Start new timer
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDelay, repeats: false) { [weak self] _ in
+            self?.performSearch(at: cameraPosition.target)
+        }
+    }
+    
+    // MARK: - Cleanup
+    deinit {
+        debounceTimer?.invalidate()
     }
 }

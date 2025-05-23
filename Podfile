@@ -6,5 +6,5 @@ target 'Yandex Maps Test' do
   use_frameworks!
 
   # Pods for Yandex Maps Test
-pod 'YandexMapsMobile', '4.5.0-full'
+pod 'YandexMapsMobile', '4.15.0-full'
 end
